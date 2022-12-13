@@ -1,0 +1,541 @@
+function msgNotifi(toastTrigger){
+
+ 
+  $("#notifiContainer").append(`   
+
+  <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+  <div class="toast-header">
+    <img id="ico" src="./image/ico.ico" class="rounded me-2" alt="...">
+    <strong class="me-auto">notificacion</strong>
+    <small id="notifiHora">Hora:</small>
+    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+  </div>
+  <div id="textoContenido" class="toast-body">
+   Esto es una notificacion de prueva 
+  </div>
+</div> 
+  
+
+   `)
+  
+   const toastLiveExample = document.getElementById('liveToast')
+   const toast = new bootstrap.Toast(toastLiveExample)
+   const myToast = bootstrap.Toast.getInstance(toastLiveExample)
+   var hoy = new Date();
+   var fecha = hoy.getDate() + '-' + ( hoy.getMonth() + 1 ) + '-' + hoy.getFullYear()
+
+   if (toastTrigger) {
+    document.getElementById('textoContenido').innerHTML = toastTrigger;
+    document.getElementById('notifiHora').innerHTML = fecha;
+    myToast.show()
+ 
+  } 
+  document.getElementById('notifiHora').innerHTML = fecha;
+  toast.show()
+}
+
+
+
+
+  DATAS 
+  async function maint5t(abuscar, cantidadVideos) {
+    //const videoData = [];
+  
+    let totalPages = 10;
+    let nextPageToken = undefined;
+  
+    for (let counter = 0; counter < totalPages; counter = counter + 1) {
+      const data = await getYoutubeResults(abuscar, cantidadVideos, nextPageToken);
+     // videoData.push(...data.items);
+      nextPageToken = data.nextPageToken;
+      regiondata = data.regionCode;
+      cantidadResultados = data.pageInfo;
+      estadoRes = data.status;
+     idvideo = data.items[counter].id.videoId;
+     titulodelvideo = data.items[counter].snippet.title;
+     publishTime = data.items[counter].snippet.publishTime;
+    }
+   /*  if (data.error)
+    alert('cuota off'); */
+  //console.log(estadoRes);
+    //const videoDataJSON = JSON.stringify(videoData, null, 2);
+   // fs.writeFileSync("./data.json", videoDataJSON);
+  
+    if (nextPageToken !== undefined)
+  
+    $("#navigation").html(`
+    
+    <nav aria-label="Page navigation example">
+    <small class="text-muted">Fecha:${titulodelvideo}</small>
+    <ul class="pagination">
+      <li class="page-item"><a class="page-link" href="#"><small class="text-muted">Region:</small>${regiondata}</a></li>
+      <li class="page-item"><a class="page-link" href="#">${idvideo}</a></li>
+      <li class="page-item"><a class="page-link" href="#">3</a></li>
+      <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+      <li class="page-item"><a class="page-link" href="#">Next</a></li>
+    </ul>
+  </nav>
+    
+    `); 
+   
+    $("#infoResuldt").html(`
+    
+   <nav aria-label="Page navigation example">
+   <ul class="pagination">
+     <li class="page-item">${regiondata}</li>
+     <li class="page-item">${idvideo}</li>
+   </ul>
+  </nav>
+   
+  
+  `); 
+   
+  $("#result").after(`
+  
+  <div class="col">
+     <div class="card" onclick="mostrarVideo('${idvideo}', '${titulodelvideo}')" style="">
+       <img src="https://img.youtube.com/vi/${idvideo}/3.jpg" class="card-img-top" alt="...">
+       <div class="card-body">
+       <h6 class="card-title">${titulodelvideo}</h6>
+       <small class="text-muted">Fecha:${publishTime}</small>
+       </div>
+     </div>
+   </div>
+  
+  
+  
+  
+  
+  `); 
+  
+  
+  }
+  
+
+
+  async function getYoutubeResults(query, resultsPerPage, pageToken) {
+    console.log("la vuscar es:"+query +"y la cantidad de resultado es "+resultsPerPage);
+   // console.log("Ready to get Youtube data!");
+    let url = `https://www.googleapis.com/youtube/v3/search?key=${YOUTUBE_API_KEY}&type=video&part=snippet&q=${query}&maxResults=${resultsPerPage}`;
+   /*  if (resultsPerPage) {
+      url = `${url}&maxResults=${resultsPerPage}`;
+    } */
+    if (pageToken) {
+      url = `${url}&pageToken=${pageToken}`;
+    }
+    console.log("api por defecto:"+YOUTUBE_API_KEY);
+    const response = await fetch(url);
+    
+    console.log(response.status);
+    if (response.status === 403){
+        const YOUTUBE_API_KEY = YOUTUBE_API_KEY_2;
+    console.log("aplicanco camvi de api a:"+YOUTUBE_API_KEY);
+    let url = `https://www.googleapis.com/youtube/v3/search?key=${YOUTUBE_API_KEY}&type=video&part=snippet&q=${query}&maxResults=${resultsPerPage}`;
+    const response = await fetch(url);
+    
+    if (response.status == 200){
+   console.log("el estado de la fetch rs :"+response.status);
+  mostrardata(response)
+  return;
+   }
+  
+  } 
+  if (response.status === 403){
+    const YOUTUBE_API_KEY = YOUTUBE_API_KEY_3;
+  console.log("aplicanco camvi de api a:"+YOUTUBE_API_KEY);
+  let url = `https://www.googleapis.com/youtube/v3/search?key=${YOUTUBE_API_KEY}&type=video&part=snippet&q=${query}&maxResults=${resultsPerPage}`;
+  const response = await fetch(url);
+  
+  if (response.status == 200){
+  console.log("el estado de la fetch rs :"+response.status);
+  mostrardata(response)
+  return;
+  }
+  
+  } 
+  
+   console.log('findel fetch')
+  
+    }
+  
+
+
+    async function mostrardata(response){
+        const data = await response.json();
+        console.log(data);
+    
+    
+        for (var k in data.items) {
+          var tituloVideo = data.items[k]["snippet"].title;
+          var idvideo = data.items[k]["id"].videoId;
+          var idVideo = data.items[k]["id"].videoId;
+          var urlVideo = "https://www.youtube.com/watch?v=" + data.items[k]["id"].videoId;
+          var publishedAt = data.items[k]["snippet"].publishedAt;
+          var description = data.items[k]["snippet"].description;
+          var urlminiarura = "https://img.youtube.com/vi/" + data.items[k]["id"].videoId + "/0.jpg";
+        }
+       /*  if (data.error)
+        alert('cuota off'); */
+      //console.log(estadoRes);
+        //const videoDataJSON = JSON.stringify(videoData, null, 2);
+       // fs.writeFileSync("./data.json", videoDataJSON);
+      
+        if (tituloVideo !== undefined)
+      
+        $("#navigation").html(`
+        
+        <nav aria-label="Page navigation example">
+        <small class="text-muted">Fecha:nada tod</small>
+        <ul class="pagination">
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+          <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul>
+      </nav>
+        
+        `); 
+       
+        $("#infoResuldt").html(`
+        
+       <nav aria-label="Page navigation example">
+       <ul class="pagination">
+        
+         <li class="page-item">${idvideo}</li>
+       </ul>
+      </nav>
+       
+      
+      `); 
+       
+      $("#result").after(`
+      
+      <div class="col">
+         <div class="card" onclick="mostrarVideo('${idVideo}', '${tituloVideo}')" style="">
+           <img src="https://img.youtube.com/vi/${idvideo}/3.jpg" class="card-img-top" alt="...">
+           <div class="card-body">
+           <h6 class="card-title">${tituloVideo}</h6>
+           <small class="text-muted">Fecha:${publishedAt}</small>
+           </div>
+         </div>
+       </div>
+      
+      
+      
+      
+      
+      `); 
+      
+      
+    
+    
+        
+       }
+    
+    
+
+    otros html 
+
+    
+  
+   <!-- Start Header Middle -->
+   <div class="header-middle">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-3 col-md-3 col-7">
+                <!-- Start Header Logo -->
+                <a class="navbar-brand" href="index.html">
+                    <img src="assets/images/logo/logo.svg" alt="Logo">
+                </a>
+                <!-- End Header Logo -->
+            </div>
+            <div class="col-lg-5 col-md-7 d-xs-none">
+                <!-- Start Main Menu Search -->
+                <div class="main-menu-search">
+                    <!-- navbar search start -->
+                    <div class="navbar-search search-style-5">
+                        <div class="search-select">
+                            <div class="select-position">
+                                <select id="select1">
+                                    <option selected>All</option>
+                                    <option value="1">option 01</option>
+                                    <option value="2">option 02</option>
+                                    <option value="3">option 03</option>
+                                    <option value="4">option 04</option>
+                                    <option value="5">option 05</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="search-input">
+                            <input type="text" placeholder="Search">
+                        </div>
+                        <div class="search-btn">
+                            <button><i class="lni lni-search-alt"></i></button>
+                        </div>
+                    </div>
+                    <!-- navbar search Ends -->
+                </div>
+                <!-- End Main Menu Search -->
+            </div>
+            <div class="col-lg-4 col-md-2 col-5">
+                <div class="middle-right-area">
+                    <div class="nav-hotline">
+                        <i class="lni lni-phone"></i>
+                        <h3>Hotline:
+                            <span>(+100) 123 456 7890</span>
+                        </h3>
+                    </div>
+                    <div class="navbar-cart">
+                        <div class="wishlist">
+                            <a href="javascript:void(0)">
+                                <i class="lni lni-heart"></i>
+                                <span class="total-items">0</span>
+                            </a>
+                        </div>
+                        <div class="cart-items">
+                            <a href="javascript:void(0)" class="main-btn">
+                                <i class="lni lni-cart"></i>
+                                <span class="total-items">2</span>
+                            </a>
+                            <!-- Shopping Item -->
+                            <div class="shopping-item">
+                                <div class="dropdown-cart-header">
+                                    <span>2 Items</span>
+                                    <a href="cart.html">View Cart</a>
+                                </div>
+                                <ul class="shopping-list">
+                                    <li>
+                                        <a href="javascript:void(0)" class="remove" title="Remove this item"><i
+                                                class="lni lni-close"></i></a>
+                                        <div class="cart-img-head">
+                                            <a class="cart-img" href="product-details.html"><img
+                                                    src="assets/images/header/cart-items/item1.jpg" alt="#"></a>
+                                        </div>
+
+                                        <div class="content">
+                                            <h4><a href="product-details.html">
+                                                    Apple Watch Series 6</a></h4>
+                                            <p class="quantity">1x - <span class="amount">$99.00</span></p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)" class="remove" title="Remove this item"><i
+                                                class="lni lni-close"></i></a>
+                                        <div class="cart-img-head">
+                                            <a class="cart-img" href="product-details.html"><img
+                                                    src="assets/images/header/cart-items/item2.jpg" alt="#"></a>
+                                        </div>
+                                        <div class="content">
+                                            <h4><a href="product-details.html">Wi-Fi Smart Camera</a></h4>
+                                            <p class="quantity">1x - <span class="amount">$35.00</span></p>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="bottom">
+                                    <div class="total">
+                                        <span>Total</span>
+                                        <span class="total-amount">$134.00</span>
+                                    </div>
+                                    <div class="button">
+                                        <a href="checkout.html" class="btn animate">Checkout</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--/ End Shopping Item -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Header Middle -->
+  
+  
+ <!--   <section class="hero-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-12 custom-padding-right">
+                <div class="slider-head">
+                
+                    <div class="hero-slider">
+                     
+                        <div class="single-slider"
+                            style="background-image: url(assets/images/hero/slider-bg1.jpg);">
+                            <div class="content">
+                                <h2><span>No restocking fee ($35 savings)</span>
+                                    M75 Sport Watch
+                                </h2>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                    incididunt ut labore et dolore magna aliqua.</p>
+                                <h3><span>Now Only</span> $320.99</h3>
+                                <div class="button">
+                                    <a href="product-grids.html" class="btn">Shop Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="single-slider"
+                            style="background-image: url(assets/images/hero/slider-bg2.jpg);">
+                            <div class="content">
+                                <h2><span>Big Sale Offer</span>
+                                    Get the Best Deal on CCTV Camera
+                                </h2>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                    incididunt ut labore et dolore magna aliqua.</p>
+                                <h3><span>Combo Only:</span> $590.00</h3>
+                                <div class="button">
+                                    <a href="product-grids.html" class="btn">Shop Now</a>
+                                </div>
+                            </div>
+                        </div>
+                       
+                    </div>
+                  
+                </div>
+            </div>
+            <div class="col-lg-4 col-12">
+                <div class="row">
+                    <div class="col-lg-12 col-md-6 col-12 md-custom-padding">
+                        <!-- Start Small Banner -->
+                        <div class="hero-small-banner"
+                            style="background-image: url('assets/images/hero/slider-bnr.jpg');">
+                            <div class="content">
+                                <h2>
+                                    <span>New line required</span>
+                                    iPhone 12 Pro Max
+                                </h2>
+                                <h3>$259.99</h3>
+                            </div>
+                        </div>
+                        <!-- End Small Banner -->
+                    </div>
+                    <div class="col-lg-12 col-md-6 col-12">
+                        <!-- Start Small Banner -->
+                        <div class="hero-small-banner style2">
+                            <div class="content">
+                                <h2>Weekly Sale!</h2>
+                                <p>Saving up to 50% off all online store items this week.</p>
+                                <div class="button">
+                                    <a class="btn" href="product-grids.html">Shop Now</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Start Small Banner -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> -->
+<!-- End Hero Area -->
+
+
+
+otra parte de menu <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8 col-md-6 col-12">
+                    <div class="nav-inner">
+                        <!-- Start Mega Category Menu -->
+                        <div class="mega-category-menu">
+                            <span class="cat-button"><i class="lni lni-menu"></i>All Categories</span>
+                            <ul class="sub-category">
+                                <li><a href="product-grids.html">Electronics <i class="lni lni-chevron-right"></i></a>
+                                    <ul class="inner-sub-category">
+                                        <li><a href="product-grids.html">Digital Cameras</a></li>
+                                        <li><a href="product-grids.html">Camcorders</a></li>
+                                        <li><a href="product-grids.html">Camera Drones</a></li>
+                                        <li><a href="product-grids.html">Smart Watches</a></li>
+                                        <li><a href="product-grids.html">Headphones</a></li>
+                                        <li><a href="product-grids.html">MP3 Players</a></li>
+                                        <li><a href="product-grids.html">Microphones</a></li>
+                                        <li><a href="product-grids.html">Chargers</a></li>
+                                        <li><a href="product-grids.html">Batteries</a></li>
+                                        <li><a href="product-grids.html">Cables & Adapters</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="product-grids.html">accessories</a></li>
+                                <li><a href="product-grids.html">Televisions</a></li>
+                                <li><a href="product-grids.html">best selling</a></li>
+                                <li><a href="product-grids.html">top 100 offer</a></li>
+                                <li><a href="product-grids.html">sunglass</a></li>
+                                <li><a href="product-grids.html">watch</a></li>
+                                <li><a href="product-grids.html">man’s product</a></li>
+                                <li><a href="product-grids.html">Home Audio & Theater</a></li>
+                                <li><a href="product-grids.html">Computers & Tablets </a></li>
+                                <li><a href="product-grids.html">Video Games </a></li>
+                                <li><a href="product-grids.html">Home Appliances </a></li>
+                            </ul>
+                        </div>
+                        <!-- End Mega Category Menu -->
+                        <!-- Start Navbar -->
+                        <nav class="navbar navbar-expand-sm">
+                            <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="toggler-icon"></span>
+                                <span class="toggler-icon"></span>
+                                <span class="toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+                                <ul id="nav" class="navbar-nav ms-auto">
+                                    <li class="nav-item">
+                                        <a href="index.html" class="active" aria-label="Toggle navigation">Home</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse"
+                                            data-bs-target="#submenu-1-2" aria-controls="navbarSupportedContent"
+                                            aria-expanded="false" aria-label="Toggle navigation">Pages</a>
+                                        <ul class="sub-menu collapse" id="submenu-1-2">
+                                            <li class="nav-item"><a href="about-us.html">About Us</a></li>
+                                            <li class="nav-item"><a href="faq.html">Faq</a></li>
+                                            <li class="nav-item"><a href="login.html">Login</a></li>
+                                            <li class="nav-item"><a href="register.html">Register</a></li>
+                                            <li class="nav-item"><a href="mail-success.html">Mail Success</a></li>
+                                            <li class="nav-item"><a href="404.html">404 Error</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse"
+                                            data-bs-target="#submenu-1-3" aria-controls="navbarSupportedContent"
+                                            aria-expanded="false" aria-label="Toggle navigation">Shop</a>
+                                        <ul class="sub-menu collapse" id="submenu-1-3">
+                                            <li class="nav-item"><a href="product-grids.html">Shop Grid</a></li>
+                                            <li class="nav-item"><a href="product-list.html">Shop List</a></li>
+                                            <li class="nav-item"><a href="product-details.html">shop Single</a></li>
+                                            <li class="nav-item"><a href="cart.html">Cart</a></li>
+                                            <li class="nav-item"><a href="checkout.html">Checkout</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse"
+                                            data-bs-target="#submenu-1-4" aria-controls="navbarSupportedContent"
+                                            aria-expanded="false" aria-label="Toggle navigation">Blog</a>
+                                        <ul class="sub-menu collapse" id="submenu-1-4">
+                                            <li class="nav-item"><a href="blog-grid-sidebar.html">Blog Grid Sidebar</a>
+                                            </li>
+                                            <li class="nav-item"><a href="blog-single.html">Blog Single</a></li>
+                                            <li class="nav-item"><a href="blog-single-sidebar.html">Blog Single
+                                                    Sibebar</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="contact.html" aria-label="Toggle navigation">Contact Us</a>
+                                    </li>
+                                </ul>
+                            </div> <!-- navbar collapse -->
+                        </nav>
+                        <!-- End Navbar -->
+                    </div>
+                </div>
+                <div class="end-0">
+                    <!-- Start Nav Social -->
+                                    
+                    <!-- End Nav Social -->
+                </div>
+            </div>
+        </div>
+
+
+
+        <video controls="" autoplay="" name="media"><source src="" type="video/mp4"></video>
+        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/${id}" title="${titulo}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
