@@ -9,6 +9,7 @@ const API_KEY = require("./priv/json_data/api.json")
 //const ffmpeg = require('ffmpeg');
 //const ffmpeg = require('ffmpeg-static');
 //pathToFfmpeg = require('ffmpeg-static');
+
 app.use(body_parser.urlencoded({extended:true}));
 const mainpath = path.join(__dirname+'/views');
 app.use(express.static(mainpath)
