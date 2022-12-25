@@ -200,7 +200,7 @@ try {
 
 //////////////////////////////////////////////////////////////
  app.listen(process.env.PORT, function () {
-  console.log('Example app started!')
+  console.log('Example app started!1.2')
 })
 
 
