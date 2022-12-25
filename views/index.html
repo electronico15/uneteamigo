@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>M_R_B</title>
+    <meta name="description" content="App de emprendedores." />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" type="image/x-icon" href="./image/ico.ico" />
+
+    <!-- ========================= CSS here ========================= -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+ 
+    <link rel="stylesheet" type="text/css" href="./css/my_uploads.css">
+
+</head>
+<body class="bg-dark" >
+        
+       <nav class="navbar navbar-expand-sm navbar-dark bg-dark border-bottom" aria-label="Barra de navegación Offcanvas grande">
+        <div class="container-fluid">
+          <a class="navbar-brand" style="color: rgba(169, 169, 169, 0.279);" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><img src="./image/ico.ico" alt="Bootstrap" width="45" height="45"><marquee truespeed="300" scrolldelay="120">M_R_B_Tools</marquee>
+            </font></font></a>
+                  <strong id="status"></strong>
+          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar2" aria-controls="offcanvasNavbar2">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar2" aria-labelledby="offcanvasNavbar2Label">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasNavbar2Label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Menu Principal</font></font></h5>
+              <button id="closeMenu" type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Cerca"></button>
+            </div>
+            <div class="offcanvas-body">
+              <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                <li class="nav-item">
+                  <a class="nav-link" aria-current="page" href="#" onclick="loadPage('default.html')"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><i class="bi bi-house-fill"></i> Inicio</font></font></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#"><font style="vertical-align: inherit;"onclick="loadPage('YouTubeDownload.html')"><font style="vertical-align: inherit;"><i class="bi bi-youtube close"></i> YouTobe</font></font></a>
+                </li>
+                <li class="nav-item dropstart " >
+                  <a disabled class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+                    <i class="bi bi-signpost-split-fill"></i> Post
+                  </font></font></a>
+                  <ul class="dropdown-menu dropdown-menu-dark">
+                    <li onclick="loadPage('postEmprendedor.html')"><a class="dropdown-item" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">5.Características de un emprendedor exitoso.</font></font></a></li>
+                    <li><a class="dropdown-item" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Otra acción</font></font></a></li>
+                    <li>
+                      <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">algo mas aqui</font></font></a></li>
+                  </ul>
+                </li>
+              </ul>
+          
+            </div>
+          </div>
+        </div>
+      </nav>
+ 
+
+     
+ <div class="flex" id="contenido"> </div>
+ <div class="flex" id="videos"> </div>
+ <div class="b-example-divider"></div>
+ <div id="notifiContainer" class="toast-container position-fixed bottom-0 end-0 p-3"></div>
+<div class="container margin-top border-top">
+    <footer class="py-3 my-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+    
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" onclick="loadPage('Politicadeprivacidad.html')">Política de Privacidad</font></font></a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"onclick="loadPage('politicadecookies.html')">Politicadecookies</font></font></a></li>
+         
+        </ul>
+        <p class="text-center text-muted"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">© 2022 Powered-By: <strong>M_R_B</strong> </font></font></p>
+      </footer>
+
+      </div>
+
+      
+      <script src="./js/jquery-3.6.1.js"></script>
+      <script src="//cdn.jsdelivr.net/jquery.color-animation/1/mainfile"></script>
+      <script src="./js/msgNotifi.js"></script>
+      <script src="./js/setCookie.js"></script>
+      <script src="./js/index.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+      <script src="//code.tidio.co/fxaw2hvcq4bnvmi3to5h5al3qfesznuv.js" async></script>
+     
+</body>
+</html>

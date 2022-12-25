@@ -1,0 +1,188 @@
+body{
+ color: #fff0f0;
+}
+
+@media (min-width: 759px) {
+     #vid{
+       
+        /* width: 250px; */
+    } 
+}
+#vid{
+    margin-bottom: 10px;
+    /* width: 250px;
+    height: 100px; */
+    cursor: pointer;
+    /* background: turquoise; */
+    /* overflow: hidden; */
+    text-align: start;
+   
+    /* font-size: 14px; */
+    
+    
+   
+   
+    /* justify-content: space-around!important;
+     align-items: center!important; */
+}
+
+element.style {
+}
+.card-footer {
+    margin-top: 10px !important;
+ 
+}
+
+.divItem{
+height: 200px !important;
+
+}
+.card-footer i {
+    font-size: 2em;
+    margin: 5px;
+    cursor: pointer;
+}
+.TituloV{
+/* font-size: 1rem; */
+
+}
+
+#ico{
+    height:25px;
+    width: 25px;
+}
+.flex{
+    justify-content: center!important;
+    text-align: center !important;   
+    align-items: center!important;   
+}
+#imagePoster{
+    border-radius: 10px;
+/* padding-left: 8px; */
+margin-right: 8px;
+    width: 100%;
+    height: 100%; 
+}
+.gradi{
+    width: 100%;
+    height: 300px;
+    background: rgb(203,69,128);
+background: radial-gradient(circle, rgba(203,69,128,1) 6%, rgba(148,187,233,1) 80%);
+} 
+#btnFiltro{
+   background-color: #03020202;
+}
+.col-6{
+   /*  padding: 0px ; */ 
+}
+.badge{
+    margin-top: 9px; 
+    text-align: initial !important;
+    padding: 0px 
+}
+.descrip{
+    color: #f0f8ff;
+    margin-bottom: 8px;
+}
+#result{
+    overflow-y: scroll;
+
+    height: 600px;
+    
+}
+.cosorHelp{
+    cursor: help;
+}
+
+
+/* 
+
+
+.row{
+   
+       align-items: center !important; 
+    text-align: center !important; 
+ }
+.tama{
+    max-width: 25rem !important;
+    min-height:15rem !important;
+    font-size: 1.25em !important;
+    max-height: 15rem !important;
+}
+.col{
+    background-color: aliceblue;
+  
+}
+
+
+
+help
+
+.card{
+    
+    margin: 5px; 
+   
+    cursor: pointer;
+    background:  #21212100 !important; 
+    color: rgb(255, 255, 255);
+   
+ 
+}
+
+.card-body {
+    flex: 1 1 auto;
+    padding: 0px !important;
+    color: var(--bs-card-color);
+}
+.card-title {
+    margin:1px !important;
+
+} */
+/* 
+.row {
+    
+    padding-right:0px !important;
+    padding: 0px;
+    justify-content: space-around!important;
+}
+
+
+
+.flex-container {
+     display: flex;
+ 
+    flex-flow: wrap;
+     flex-wrap: wrap;
+     justify-content: space-around;
+     align-items: center;
+     align-content: center;
+   
+  }
+
+ */
+/* 
+.fondoTrans{
+    padding:0px;
+   background:hsl(0, 0%, 6%); 
+}
+
+
+
+#btn_modal{
+    display: none;
+}
+.form-select{
+    max-width:69px;
+    min-width: 80px;
+}
+#infoNav{
+    margin-left: 20px;
+    margin-right: 15px;
+}
+
+
+.memuMio{
+    margin: 5px;
+}
+
+*/

@@ -1,0 +1,225 @@
+<div   class="container-fluid "> 
+  <nav class="row navbar navbar-expand-lg bg-dark">
+    <div class="container-fluid">
+      <div class="input-group mb-3 " style="margin-top:10px;" >
+        <input id="inputUrl" list="sugerencias" type="text" autocorrect="on" autofocus class="form-control" placeholder="Buscar" aria-label="Recipient's username" aria-describedby="button-addon2">
+            <button id="btnFiltro" class="btn btn-outline-secondary" type="button" class="navbar-brand form-control-sm"  data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbarfILTROS" aria-controls="offcanvasWithBothOptions"><svg id="btnFiltro" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-funnel-fill" viewBox="0 0 16 16">
+              <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2z"/>
+            </svg></button>               
+        <buton class="btn btn-outline-secondary" type="button" id="button-addon2" onclick='preocesar(document.getElementById("inputUrl").value); document.getElementById("inputUrl").value=""; '><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+        </svg></button>
+      </div>
+    </div>
+  </nav>
+
+  <datalist id="sugerencias">
+    <option value="Videojuegos">
+    <option value="Shorts">
+    <option value="Top videojuegos en directo">
+    <option value="Noticias">
+    <option value="Deportes">
+    <option value="Moda y belleza">
+  </datalist>
+ 
+  <div class="row">
+    
+  
+              <div id="descrip" class="col-lg-8 descrip margin-bottom">
+              <iframe width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/wNUJHam7830" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              </div>
+
+              <div class="col-lg-4 ">
+                <div id="result" class="row">
+
+                  <div id="vid" class="col-12 col-sm-6	col-lg-12 col-xl-12">
+                      
+                    <div class="row ">
+                   
+                     <div class="col-4" ><img id="imagePoster" src="./image/ico.ico" class="card-img-top" alt="#"></div> 
+                    <div class="col-8 badge  text-wrap">
+                     <p class="">Tu escribe y nosotros buscamos por ti 😜</p>     
+                     <span>Usa los filtros <i class="bi bi-funnel"></i> que están en el menu 🔖 para personalizar tus 🔍 búsquedas con mejores resultados </span>
+                     <span>
+                   </span>
+                   <div class="card-footer ">
+                   </div>
+                   </div>
+                   </div>
+                    </div>
+
+                    <div id="vid" class="col-12 col-sm-6	col-lg-12 col-xl-12">
+                     <div class="row ">
+                     <div class="col-4" ><img id="imagePoster" src="./image/ico.ico" class="card-img-top" alt="#"></div> 
+                     <div class="col-8 badge  text-wrap">
+                       <p class="">Como buscrar 😜</p>     
+                       <span>
+                        Pues fácil pon el nombre del video favorito , música, película que quieras ver o descargar <br>
+                         y veras la magia nunca fu tan fácil descargar de YouTube,
+                       </span>
+                     <div class="card-footer ">
+                     </div>
+                     </div>
+                     </div>
+                     </div>
+
+                     <div id="vid" class="col-12 col-sm-6	col-lg-12 col-xl-12">
+                      <div class="row ">
+                      <div class="col-4" ><img id="imagePoster" src="./image/ico.ico" class="card-img-top" alt="#"></div> 
+                      <div class="col-8 badge  text-wrap">
+                        <p class=""></p>     
+                        <span>
+                         Aunque no nos responsabilizamos por el mal uso de esta herramienta,<br> pues esta es solo para fines educativos y de entretenimiento.
+                        </span>
+                      <div class="card-footer ">
+                      </div>
+                      </div>
+                      </div>
+                      </div>
+
+                      <div id="vid" class="col-12 col-sm-6	col-lg-12 col-xl-12">
+                        <div class="row ">
+                        <div class="col-4" ><img id="imagePoster" src="./image/ico.ico" class="card-img-top" alt="#"></div> 
+                        <div class="col-8 badge  text-wrap">
+                          <p class=""></p>     
+                          <span>
+                            Tambien puedes descargar los subtítulos de los videos de con un solo click
+                          </span>
+                        <div class="card-footer ">
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                </div>
+              </div>
+              
+                          
+  </div>
+</div>
+<!--  AREA DE OFFCABA FILTOS  -->
+<div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbarfILTROS" aria-labelledby="offcanvasNavbar2Label">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasNavbar2Label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Seleccione y personalicé sus filtros</font></font></h5>
+    <button id="closeMenu" type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Cerca"></button>
+  </div>
+  <div class="offcanvas-body">
+    <div class="bd-example-snippet bd-code-snippet"><div class="bd-example">
+      <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+          <h4 class="accordion-header" id="headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+             Cantidad de videos a mostrar
+            </button>
+          </h4>
+          <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample" style="">
+            <div class="accordion-body">
+              <button type="button" class="btn btn-outline-primary" onclick="setCantidadResultados('50')">50</button>
+              <button type="button" class="btn btn-outline-primary" onclick="setCantidadResultados('40')">40</button>
+              <button type="button" class="btn btn-outline-primary" onclick="setCantidadResultados('30')">30</button>
+              <button type="button" class="btn btn-outline-primary" onclick="setCantidadResultados('20')">20</button>
+              <button type="button" class="btn btn-outline-primary" onclick="setCantidadResultados('10')">10</button>
+              <button type="button" class="btn btn-outline-primary" onclick="setCantidadResultados('5')">5</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h4 class="accordion-header" id="headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              Region preferida
+            </button>
+          </h4>
+          <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample" style="">
+            <div class="accordion-body">
+              <button type="button" class="btn btn-outline-primary" onclick="setRegionCode('cu')" >CU Cuba</button>
+              <button type="button" class="btn btn-outline-primary" onclick="setRegionCode('DZ')">DZ Algeria</button>
+              <button type="button" class="btn btn-outline-primary" onclick="setRegionCode('BR')">BR Brazil</button>
+              <button type="button" class="btn btn-outline-primary" onclick="setRegionCode('CA')">CA Canada</button>
+              <button type="button" class="btn btn-outline-primary" onclick="setRegionCode('CL')">CL Chile</button>
+              <button type="button" class="btn btn-outline-primary" onclick="setRegionCode('ES')">ES Spain</button>
+              <button type="button" class="btn btn-outline-primary" onclick="setRegionCode('US')">US United States</button>
+              <button type="button" class="btn btn-outline-primary" onclick="setRegionCode('MX')">MX Mexico</button>
+              <button type="button" class="btn btn-outline-primary" onclick="setRegionCode('DZ')">IT Italy</button>
+              <button type="button" class="btn btn-outline-primary" onclick="setRegionCode('PA')">PA Panama</button>
+              <button type="button" class="btn btn-outline-primary" onclick="setRegionCode('DZ')">IT Italy</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h4 class="accordion-header" id="headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              Orden
+            </button>
+          </h4>
+          <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample" style="">
+            <div class="accordion-body">
+              <button type="button" class="btn btn-outline-primary" onclick="setordenResult('date')">según la fecha en que se crean</button>
+              <button type="button" class="btn btn-outline-primary" onclick="setordenResult('rating')">Los videos se ordenan de mayor a menor calificación</button>
+              <button type="button" class="btn btn-outline-primary" onclick="setordenResult('relevance')">según su coincidencia con  consulta de búsqueda</button>
+              <button type="button" class="btn btn-outline-primary" onclick="setordenResult('title')">ordenan alfabéticamente por título</button>
+              <button type="button" class="btn btn-outline-primary" onclick="setordenResult('viewCount')">según el número de reproducciones</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h4 class="accordion-header" id="headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOnesettypeRecursoResul" aria-expanded="false" aria-controls="collapseOne">
+             Tipo de resultados
+            </button>
+          </h4>
+          <div id="collapseOnesettypeRecursoResul" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample" style="">
+            <div class="accordion-body">
+              <button type="button" class="btn btn-outline-primary" onclick="settypeRecursoResul('channel')">Canal</button>
+              <button type="button" class="btn btn-outline-primary" onclick="settypeRecursoResul('playlist')">lista de reproducción</button>
+              <button type="button" class="btn btn-outline-primary" onclick="settypeRecursoResul('video')">video</button>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="accordion-item">
+          <h4 class="accordion-header" id="headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOnesetvideoDuration" aria-expanded="false" aria-controls="collapseOne">
+              según su duración
+            </button>
+          </h4>
+          <div id="collapseOnesetvideoDuration" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample" style="">
+            <div class="accordion-body">
+              <button type="button" class="btn btn-outline-primary" onclick="setvideoDuration('any')">No filtrar los resultados </button>
+              <button type="button" class="btn btn-outline-primary" onclick="setvideoDuration('long')">de más de 20 minutos de duración</button>
+              <button type="button" class="btn btn-outline-primary" onclick="setvideoDuration('medium')">de entre 4 y 20 minutos </button>
+              <button type="button" class="btn btn-outline-primary" onclick="setvideoDuration('short')">de menos de 4 minutos de duración.</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h4 class="accordion-header" id="headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#setLanguageResult" aria-expanded="false" aria-controls="collapseOne">
+              Idioma preferido
+            </button>
+          </h4>
+          <div id="setLanguageResult" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample" style="">
+            <div class="accordion-body">
+              <button type="button" class="btn btn-outline-primary" onclick="setLanguageResult('es')">es	Spanish</button>
+              <button type="button" class="btn btn-outline-primary" onclick="setLanguageResult('en')">en	English</button>
+              <button type="button" class="btn btn-outline-primary" onclick="setLanguageResult('ca')">ca	Catalan</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      </div></div>
+
+
+
+  </div>
+</div>
+
+         
+ 
+    <script type="text/javascript" src="./js/YoubTube.js"></script> 
+
+    
