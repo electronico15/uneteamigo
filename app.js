@@ -224,7 +224,7 @@ const progressbar = setInterval(() => {
 
 //////////////////////////////////////////////////////////////
  app.listen(process.env.PORT, function () {
-  console.log('Example app started!1.3')
+  console.log('Example app started!1.4')
 })
 
 
