@@ -1,8 +1,8 @@
 {
-  "name": "youbtube",
+  "name": "M_R_B_Tools",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "devStart": "nodemon app.js --ignore *.json",
     "start": "node app.js"
