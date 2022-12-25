@@ -6,7 +6,8 @@ const ytdl = require('ytdl-core');
 const https = require('https');
 const path = require("path");
 const API_KEY = require("./priv/json_data/api.json")
-const ffmpeg = require('ffmpeg');
+//const ffmpeg = require('ffmpeg');
+const ffmpeg = require('ffmpeg-static');
 app.use(body_parser.urlencoded({extended:true}));
 const mainpath = path.join(__dirname+'/views');
 app.use(express.static(mainpath)
@@ -184,23 +185,43 @@ app.get("/downloadSUbtitulos",async function (req, res) {
 
 
 })
+/////////////////////////////////////////////////////////////////////
+const ref = 'https://www.youtube.com/watch?v=aR-KAldshAE';
+const tracker = {
+  start: Date.now(),
+  audio: { downloaded: 0, total: Infinity },
+  video: { downloaded: 0, total: Infinity },
+};
 
-try {
-	new ffmpeg('/path/to/your_movie.avi', function (err, video) {
-		if (!err) {
-			console.log('The video is ready to be processed');
-		} else {
-			console.log('Error: ' + err);
-		}
-	});
-} catch (e) {
-	console.log(e.code);
-	console.log(e.msg);
-}
+// Get audio and video stream going
+const audio = ytdl(ref, { filter: 'audioonly', quality: 'highestaudio' })
+  .on('progress', (_, downloaded, total) => {
+    tracker.audio = { downloaded, total };
+  });
+const video = ytdl(ref, { filter: 'videoonly', quality: 'highestvideo' })
+  .on('progress', (_, downloaded, total) => {
+    tracker.video = { downloaded, total };
+  });
+
+// Get the progress bar going
+const progressbar = setInterval(() => {
+  readline.cursorTo(process.stdout, 0);
+  const toMB = i => (i / 1024 / 1024).toFixed(2);
+
+  process.stdout.write(`Audio | ${(tracker.audio.downloaded / tracker.audio.total * 100).toFixed(2)}% processed `);
+  process.stdout.write(`(${toMB(tracker.audio.downloaded)}MB of ${toMB(tracker.audio.total)}MB).${' '.repeat(10)}\n`);
+
+  process.stdout.write(`Video | ${(tracker.video.downloaded / tracker.video.total * 100).toFixed(2)}% processed `);
+  process.stdout.write(`(${toMB(tracker.video.downloaded)}MB of ${toMB(tracker.video.total)}MB).${' '.repeat(10)}\n`);
+
+  process.stdout.write(`running for: ${((Date.now() - tracker.start) / 1000 / 60).toFixed(2)} Minutes.`);
+  readline.moveCursor(process.stdout, 0, -2);
+}, 1000);
+
 
 //////////////////////////////////////////////////////////////
  app.listen(process.env.PORT, function () {
-  console.log('Example app started!1.2')
+  console.log('Example app started!1.3')
 })
 
 
