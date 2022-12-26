@@ -257,6 +257,7 @@ const ffmpegProcess = cp.spawn(ffmpeg, [
 });
 ffmpegProcess.on('close', () => {
   console.log('done');
+  console.log(pathToFfmpeg);
   // Cleanup
   process.stdout.write('\n\n\n\n');
   clearInterval(progressbarHandle);
