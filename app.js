@@ -223,7 +223,7 @@ const progressbar = setInterval(() => {
   readline.moveCursor(process.stdout, 0, -2);
 }, 1000);
 
-)}
+})
 //////////////////////////////////////////////////////////////
  app.listen(process.env.PORT, function () {
   console.log('Example app started!1.5')
