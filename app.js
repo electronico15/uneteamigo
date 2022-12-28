@@ -50,7 +50,7 @@ if (!urlCodificada || !titulo || !parametros ){
       console.log('estos son  los archibos home \n '+archivos);
       });
 
-    fs.readdir( __dirname+'/dow/', function (err, archivos) {
+    fs.readdir('/dow/', function (err, archivos) {
       if (err) {
       onError(err);
       return;
