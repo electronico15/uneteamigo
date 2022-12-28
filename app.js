@@ -1,23 +1,23 @@
 
 const express = require('express');
+const app = express();
 const ffmpeg = require('fluent-ffmpeg');
 const fs = require("fs");
 const body_parser = require('body-parser');
-const app = express();
+const path = require('path');
 const cors = require('cors');
 const https = require('https');
 const ejec = require('ffmpeg-static');
 const { Console } = require('console');
 var command = ffmpeg();
-command.setFfmpegPath(ejec)
-//app.use(express.static(__dirname + '/dow'));
+command.setFfmpegPath(ejec);
+
+app.use(express.static(__dirname + '/dow'));
 
 app.use(body_parser.urlencoded({extended:true}));
 
 app.get('/', function(req, res) {
 console.log('home')
-res.send('ok')
-
 });
 
 var corsOptions = {
@@ -31,79 +31,79 @@ app.post('/ffmpeg', cors(), function(req, res) {
 
 var titulo = req.body.titulo
 var parametros = req.body.parametros; 
-var urlCodificada = req.body.urlCodificada
+var url = req.body.urlCodificada
 var tituloiPlano = titulo.replace(/[$.,:"'!><?`#~]/g,'');
 
-if (!urlCodificada || !titulo || !parametros ){
+if (!url || !titulo || !parametros ){
   res.send('faltan datos')
   console.log('faltan datos')
   return
   }
+ 
+var folderDow = path.join(__dirname, 'dow');  
+var filenamePat = path.join(folderDow, tituloiPlano+'.mp4');
 
-  console.log('directorio prinsipal es ' +__dirname);
+console.log(folderDow);
+console.log(filenamePat);
 
-  function dirFIles(){
-    fs.readdir( __dirname, function (err, archivos) {
-      if (err) {
-      onError(err);
-      return;
-      }
-      console.log('estos son  los archibos home \n '+archivos);
-      });
-
-    fs.readdir(__dirname+'/dow/', function (err, archivos) {
-      if (err) {
-      onError(err);
-      return;
-      }
-      console.log('estos son  los archibos de dow \n '+archivos);
-      });
+fs.readdir(folderDow, function (err, archivos) {
+  if (err) {
+  onError(err);
+  return;
   }
-  
+  console.log('estos son  los archibos home \n '+archivos);
+  });
 
-//console.log(tituloiPlano);
-//console.log(parametros);
-//console.log(url);
-
-var filenamePat = __dirname+'/dow/'+tituloiPlano+'.mp4'
-console.log('el file seria '+filenamePat);
-
-dirFIles();
+if(!fs.existsSync(filenamePat)){
+console.error('no existe hay que descagar');
 
 https.get(url, async function (file) {
-  console.log('gurdando en '+__dirname+'/dow/')
+  console.log('gurdando en '+folderDow)
 
-  file.pipe(fs.createWriteStream(__dirname + '/dow/'+tituloiPlano+'.mp4')).on('error', function(err) {
+  file.pipe(fs.createWriteStream(path.join(__dirname, 'dow', tituloiPlano+'.mp4')))
+  .on('error', function(err) {
   res.send('file error del tipo '+err)
     return
   })
 
-  //ffmpegFile();
-  console.log('gurdando')
-  dirFIles();
-
-  var proc = ffmpeg(filenamePat)
-  .videoCodec(parametros.videoCodec)
-  .audioCodec(parametros.audioCodec)
-  .size(parametros.size)
-  .videoBitrate(parametros.videoBitrate)
-  .audioBitrate(parametros.audioBitrate)
-  .on('progress', function(info) {
-   console.log(info.timemark)
-  })
-  .on('end', function() {
- console.log('fin de la convercion iniciando descarga en el frontend de '+__dirname+'/dow/'+tituloiPlano+'_M_R_B_FFmpeg.mp4');
- res.send(tituloiPlano+'_M_R_B_FFmpeg.mp4').end();
- dirFIles();
-  })
-  .on('error', function(err) {
-    console.log('an error happened: ' + err.message);
-  })
- .save(__dirname +'/dow/'+tituloiPlano+'_M_R_B_FFmpeg.mp4');
- 
+   console.log('gurdando')
    });
+   ffmpegFile();
+}else{
+  console.log('el archibo exite pasar a combertir')
+  ffmpegFile();
+}
+
+function ffmpegFile(){
+      console.log('combirtiendo file')
+    var proc = ffmpeg(filenamePat)
+     .videoCodec(parametros.videoCodec)
+     .audioCodec(parametros.audioCodec)
+     .size(parametros.size)
+     .videoBitrate(parametros.videoBitrate)
+     .audioBitrate(parametros.audioBitrate)
+     .on('progress', function(info) {
+      console.log(info.timemark)
+     })
+     .on('end', function() {
+    console.log('fin de la convercion iniciando descarga en el frontend de '+__dirname+'/dow/'+tituloiPlano+'_M_R_B_FFmpeg.mp4');
+    res.send(tituloiPlano+'_M_R_B_FFmpeg.mp4').end();
+    //dirFIles();
+     })
+     .on('error', function(err) {
+       console.log('an error happened: ' + err.message);
+     })
+    .save(path.join(__dirname, 'dow', tituloiPlano+'_M_R_B_FFmpeg.mp4'));
+      
+}
+
+
+
+
+
 
 })
+
 ///////////////////////////////////////////////////////////////
 app.listen(8080, function(){
 console.log('server listo')
