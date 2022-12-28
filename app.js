@@ -32,6 +32,7 @@ app.post('/ffmpeg', cors(), function(req, res) {
 var titulo = req.body.titulo
 var parametros = req.body.parametros; 
 var urlCodificada = req.body.urlCodificada
+var tituloiPlano = titulo.replace(/[$.,:"'!><?`#~]/g,'');
 
 if (!urlCodificada || !titulo || !parametros ){
   res.send('faltan datos')
@@ -39,7 +40,8 @@ if (!urlCodificada || !titulo || !parametros ){
   return
   }
 
-  console.log('directorio prinsipal es ' +__dirname)
+  console.log('directorio prinsipal es ' +__dirname);
+
   function dirFIles(){
     fs.readdir( __dirname, function (err, archivos) {
       if (err) {
@@ -49,7 +51,7 @@ if (!urlCodificada || !titulo || !parametros ){
       console.log('estos son  los archibos home \n '+archivos);
       });
 
-    fs.readdir('/dow/', function (err, archivos) {
+    fs.readdir(__dirname+'/dow/', function (err, archivos) {
       if (err) {
       onError(err);
       return;
@@ -58,12 +60,9 @@ if (!urlCodificada || !titulo || !parametros ){
       });
   }
   
-var tituloiPlano = titulo.replace(/[$.,:"'!><?`#~]/g,'');
-const urlSinI= urlCodificada.replace(/@i/g , "&");
-const url = urlSinI.replace(/@al/g, "=");
 
-console.log(tituloiPlano);
-console.log(parametros);
+//console.log(tituloiPlano);
+//console.log(parametros);
 //console.log(url);
 
 var filenamePat = __dirname+'/dow/'+tituloiPlano+'.mp4'
