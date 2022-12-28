@@ -1,4 +1,4 @@
-const express = require('express');
+cconst express = require('express');
 const ffmpeg = require('fluent-ffmpeg');
 const fs = require("fs");
 const body_parser = require('body-parser');
@@ -16,12 +16,13 @@ app.use(body_parser.urlencoded({extended:true}));
 
 app.get('/', function(req, res) {
 console.log('home')
+res.send('ok')
 
 });
 
 var corsOptions = {
   origin: 'http://localhost/',
-  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+  optionsSuccessStatus: 200 
 }
 
 /////////////////////////////////////////////////////////////////
@@ -38,6 +39,7 @@ if (!urlCodificada || !titulo || !parametros ){
   return
   }
 
+  console.log('directorio prinsipal es ' +__dirname)
   function dirFIles(){
     fs.readdir( __dirname, function (err, archivos) {
       if (err) {
@@ -62,17 +64,14 @@ const url = urlSinI.replace(/@al/g, "=");
 
 console.log(tituloiPlano);
 console.log(parametros);
-console.log(url);
+//console.log(url);
 
 var filenamePat = __dirname+'/dow/'+tituloiPlano+'.mp4'
 console.log('el file seria '+filenamePat);
 
 dirFIles();
 
-if(!fs.existsSync(filenamePat)){
-  console.log('descarganddo file desde url')
-
-  https.get(url, async function (file) {
+https.get(url, async function (file) {
   console.log('gurdando en '+__dirname+'/dow/')
 
   file.pipe(fs.createWriteStream(__dirname + '/dow/'+tituloiPlano+'.mp4'))
@@ -81,43 +80,10 @@ if(!fs.existsSync(filenamePat)){
     return
   })
 
-  ffmpegFile();
+  //ffmpegFile();
   console.log('gurdando')
-   });
-}else{
-  ffmpegFile();
-}
-
-function ffmpegFile(){
-  console.log('combirtiendo file')
-  var proc = ffmpeg(filenamePat)
-   .videoCodec(parametros.videoCodec)
-   .audioCodec(parametros.audioCodec)
-   .size(parametros.size)
-   .videoBitrate(parametros.videoBitrate)
-   .audioBitrate(parametros.audioBitrate)
-   .on('progress', function(info) {
-    console.log(info.timemark)
-   })
-   .on('end', function() {
-  console.log('fin de la convercion iniciando descarga en el frontend de '+__dirname+'/dow/'+tituloiPlano+'_M_R_B_FFmpeg.mp4');
-  res.send(tituloiPlano+'_M_R_B_FFmpeg.mp4').end();
   dirFIles();
-   })
-   .on('error', function(err) {
-     console.log('an error happened: ' + err.message);
-   })
-  .save(__dirname +'/dow/'+tituloiPlano+'_M_R_B_FFmpeg.mp4');
-  
-}
-
-});
-
-/////////////////////////////////////////////////////////////
-app.get("/dow", async function (req, res) {
-var file = req.query.file;
-console.log('descargando '+file)
-res.download(__dirname+'/dow/'+file, file)
+   });
 
 })
 ///////////////////////////////////////////////////////////////
