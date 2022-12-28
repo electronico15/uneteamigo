@@ -25,7 +25,7 @@ var corsOptions = {
 }
 
 /////////////////////////////////////////////////////////////////
-app.post('/ffmpeg', cors(corsOptions), function(req, res) {
+app.post('/ffmpeg', cors(), function(req, res) {
   console.log('iniciada el ffmpge test')
 
 var titulo = req.body.titulo
@@ -39,12 +39,20 @@ if (!urlCodificada || !titulo || !parametros ){
   }
 
   function dirFIles(){
+    fs.readdir( __dirname, function (err, archivos) {
+      if (err) {
+      onError(err);
+      return;
+      }
+      console.log('estos son  los archibos home \n '+archivos);
+      });
+
     fs.readdir( __dirname+'/dow/', function (err, archivos) {
       if (err) {
       onError(err);
       return;
       }
-      console.log(archivos);
+      console.log('estos son  los archibos de dow \n '+archivos);
       });
   }
   
