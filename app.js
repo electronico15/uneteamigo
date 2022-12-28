@@ -9,12 +9,13 @@ const ejec = require('ffmpeg-static');
 const { Console } = require('console');
 var command = ffmpeg();
 command.setFfmpegPath(ejec)
-//app.use(express.static(__dirname + '/flowplayer'));
+
+app.use(express.static(__dirname + '/dow'));
 
 app.use(body_parser.urlencoded({extended:true}));
 
 app.get('/', function(req, res) {
-res.send('En desrrollo')
+console.log('home')
 
 });
 
@@ -26,6 +27,7 @@ var corsOptions = {
 /////////////////////////////////////////////////////////////////
 app.post('/ffmpeg', cors(corsOptions), function(req, res) {
   console.log('iniciada el ffmpge test')
+
 var titulo = req.body.titulo
 var parametros = req.body.parametros; 
 var urlCodificada = req.body.urlCodificada
@@ -36,6 +38,16 @@ if (!urlCodificada || !titulo || !parametros ){
   return
   }
 
+  function dirFIles(){
+    fs.readdir( __dirname+'/dow/', function (err, archivos) {
+      if (err) {
+      onError(err);
+      return;
+      }
+      console.log(archivos);
+      });
+  }
+  
 var tituloiPlano = titulo.replace(/[$.,:"'!><?`#~]/g,'');
 const urlSinI= urlCodificada.replace(/@i/g , "&");
 const url = urlSinI.replace(/@al/g, "=");
@@ -45,7 +57,10 @@ console.log(parametros);
 console.log(url);
 
 var filenamePat = __dirname+'/dow/'+tituloiPlano+'.mp4'
-console.log('el file seria '+filenamePat)
+console.log('el file seria '+filenamePat);
+
+dirFIles();
+
 if(!fs.existsSync(filenamePat)){
   console.log('descarganddo file desde url')
 
@@ -79,6 +94,7 @@ function ffmpegFile(){
    .on('end', function() {
   console.log('fin de la convercion iniciando descarga en el frontend de '+__dirname+'/dow/'+tituloiPlano+'_M_R_B_FFmpeg.mp4');
   res.send(tituloiPlano+'_M_R_B_FFmpeg.mp4').end();
+  dirFIles();
    })
    .on('error', function(err) {
      console.log('an error happened: ' + err.message);
