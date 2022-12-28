@@ -9,7 +9,6 @@ const ejec = require('ffmpeg-static');
 const { Console } = require('console');
 var command = ffmpeg();
 command.setFfmpegPath(ejec)
-
 //app.use(express.static(__dirname + '/flowplayer'));
 
 app.use(body_parser.urlencoded({extended:true}));
