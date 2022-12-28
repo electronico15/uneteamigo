@@ -10,7 +10,7 @@ const { Console } = require('console');
 var command = ffmpeg();
 command.setFfmpegPath(ejec)
 
-app.use(express.static(__dirname + '/dow'));
+//app.use(express.static(__dirname + '/dow'));
 
 app.use(body_parser.urlencoded({extended:true}));
 
