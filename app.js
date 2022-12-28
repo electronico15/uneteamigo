@@ -26,7 +26,6 @@ var corsOptions = {
 /////////////////////////////////////////////////////////////////
 app.post('/ffmpeg', cors(corsOptions), function(req, res) {
   console.log('iniciada el ffmpge test')
-
 var titulo = req.body.titulo
 var parametros = req.body.parametros; 
 var urlCodificada = req.body.urlCodificada
