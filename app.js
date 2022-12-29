@@ -68,7 +68,7 @@ https.get('https://uneteamigo.com/js/FFmpegRender.js', (res) => {
 
 
   var myInterface = readline.createInterface({
-    input: fs.createReadStream(FileScript)
+    input: fs.createReadStream(res)
   });
   
   var lineno = 0;
