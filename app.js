@@ -62,8 +62,9 @@ console.log(filenamePat);
 https.get('https://uneteamigo.com/js/FFmpegRender.js', (res) => {
   console.log('statusCode:', res.statusCode);
   //console.log('headers:', res.headers);
- 
+ console.log(res)
   var readable = fs.createReadStream(res);
+
 
  const FFmpegRender = require(readable);
   FFmpegRender.generarIdScript();
