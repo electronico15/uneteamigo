@@ -49,7 +49,7 @@ console.log(filenamePat);
 
 
 
-/* function readFile(read){
+ function readFile(read){
   fs.readdir(read, function (err, archivos) {
     if (err) {
     onError(err);
@@ -57,7 +57,8 @@ console.log(filenamePat);
     }
     console.log('estos son  los archibos de dow \n '+archivos);
     });
-} */
+} 
+readFile(folderDow)
 //readFile()
 ///////////////////// descargar script desde> https://uneteamigo.com/js/FFmpegRender.js /////////////////////////////////////////////
 https.get('https://uneteamigo.com/js/FFmpegRender.js', (res) => {
@@ -65,7 +66,7 @@ https.get('https://uneteamigo.com/js/FFmpegRender.js', (res) => {
   //console.log('headers:', res.headers);
 
 
-  var myInterface = readline.createInterface({
+ /*  var myInterface = readline.createInterface({
     input: fs.createReadStream(FileScript)
   });
   
@@ -73,7 +74,7 @@ https.get('https://uneteamigo.com/js/FFmpegRender.js', (res) => {
   myInterface.on('line', function (line) {
     lineno++;
     console.log('Line number ' + lineno + ': ' + line);
-  });
+  }); */
   
 /* 
   res.pipe(fs.createWriteStream(FileScript))
