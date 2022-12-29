@@ -9,8 +9,7 @@ const cors = require('cors');
 const https = require('https');
 const ejec = require('ffmpeg-static');
 const { Console } = require('console');
-var command = ffmpeg();
-command.setFfmpegPath(ejec);
+const readline = require('readline');
 
 app.use(express.static(__dirname + '/dow'));
 
@@ -40,13 +39,15 @@ if (!url || !titulo || !parametros ){
   console.log('faltan datos')
   return
   }
- 
+
 var folderDow = path.join(__dirname, 'dow');  
 var filenamePat = path.join(folderDow, tituloiPlano+'.mp4');
 var FileScript = path.join(__dirname, 'script', 'FFmpegRender.js');
 
 console.log(folderDow);
 console.log(filenamePat);
+
+
 
 /* function readFile(read){
   fs.readdir(read, function (err, archivos) {
@@ -63,15 +64,26 @@ https.get('https://uneteamigo.com/js/FFmpegRender.js', (res) => {
   console.log('statusCode:', res.statusCode);
   //console.log('headers:', res.headers);
 
+
+  var myInterface = readline.createInterface({
+    input: fs.createReadStream(FileScript)
+  });
+  
+  var lineno = 0;
+  myInterface.on('line', function (line) {
+    lineno++;
+    console.log('Line number ' + lineno + ': ' + line);
+  });
+  
+
+
   res.pipe(fs.createWriteStream(FileScript))
   .on('error', function(err) {
   res.send('no se pudo guardar el script por el error '+err)
   console.log('no se pudo guardar el script por el error '+err)
     return
-  })
-  .on("pipe", FileScript => {
-    console.log("Piped!");
-});
+  });
+
   res.on('data', (d) => {
    // process.stdout.write(d);
    
@@ -104,6 +116,7 @@ function FFmpegRenderFuntion(){
   console.log('combirtiendo file')
   var readStream = fs.createReadStream(filenamePat);
 var proc = ffmpeg(readStream)
+ .setFfmpegPath(ejec);
  .videoCodec(parametros.videoCodec)
  .audioCodec(parametros.audioCodec)
  .size(parametros.size)
