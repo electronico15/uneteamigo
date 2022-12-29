@@ -60,7 +60,7 @@ function readFile(){
 
 https.get(url, (res) => {
   console.log('statusCode:', res.statusCode);
-  console.log('headers:', res.headers);
+  //console.log('headers:', res.headers);
 
   res.on('data', (d) => {
    // process.stdout.write(d);
@@ -71,13 +71,13 @@ https.get(url, (res) => {
   })
 
   setTimeout(() => {
-    readFile()
+    
   }, 3000);
 
   });
-
+  readFile()
 }).on('error', (e) => {
-  console.error(e);
+  console.error('ubo un herro al hacer get a la url'+e);
 });
 
 
