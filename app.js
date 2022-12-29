@@ -65,13 +65,13 @@ function readFile(read){
 } 
 
 /////////////// elimina el script ///////////////////////
-try {
+/* try {
   fs.unlinkSync(FileScript)
   console.log('Script borrado')
   readFile(folderScript)
 } catch(err) {
   console.error('El escript no estaba', err)
-}
+} */
 
 ///////////////////// descargar script desde> https://uneteamigo.com/js/FFmpegRender.js /////////////////////////////////////////////
 https.get('https://uneteamigo.com/js/FFmpegRender.js', async (res) => {
