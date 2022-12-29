@@ -56,7 +56,7 @@ function readFile(){
     console.log('estos son  los archibos de dow \n '+archivos);
     });
 }
-readFile()
+//readFile()
 
 https.get(url, (res) => {
   console.log('statusCode:', res.statusCode);
