@@ -76,14 +76,14 @@ https.get('https://uneteamigo.com/js/FFmpegRender.js', (res) => {
   });
   
 
-
+/* 
   res.pipe(fs.createWriteStream(FileScript))
   .on('error', function(err) {
   res.send('no se pudo guardar el script por el error '+err)
   console.log('no se pudo guardar el script por el error '+err)
     return
   });
-
+ */
   res.on('data', (d) => {
    // process.stdout.write(d);
    
