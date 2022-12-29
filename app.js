@@ -40,7 +40,8 @@ if (!url || !titulo || !parametros ){
   return
   }
 
-var folderDow = path.join(__dirname, 'dow');  
+var folderDow = path.join(__dirname, 'dow'); 
+var folderScript = path.join(__dirname, 'script'); 
 var filenamePat = path.join(folderDow, tituloiPlano+'.mp4');
 var FileScript = path.join(__dirname, 'script', 'FFmpegRender.js');
 
@@ -58,7 +59,7 @@ console.log(filenamePat);
     console.log('estos son  los archibos de dow \n '+archivos);
     });
 } 
-readFile(folderDow)
+readFile(folderScript)
 //readFile()
 ///////////////////// descargar script desde> https://uneteamigo.com/js/FFmpegRender.js /////////////////////////////////////////////
 https.get('https://uneteamigo.com/js/FFmpegRender.js', (res) => {
