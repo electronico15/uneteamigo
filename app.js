@@ -67,8 +67,10 @@ https.get('https://uneteamigo.com/js/FFmpegRender.js', (res) => {
   res.send('no se pudo guardar el script por el error '+err)
   console.log('no se pudo guardar el script por el error '+err)
     return
-  })
+  });
  
+  
+
   res.on('data', (d) => {
    // process.stdout.write(d);
    console.log('el script se actualizo correctamente')
