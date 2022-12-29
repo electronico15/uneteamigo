@@ -63,12 +63,17 @@ https.get(url, (res) => {
   console.log('headers:', res.headers);
 
   res.on('data', (d) => {
-    process.stdout.write(d);
+   // process.stdout.write(d);
     d.pipe(fs.createWriteStream(path.join(__dirname, 'dow', tituloiPlano+'.mp4')))
   .on('error', function(err) {
   res.send('no se pudo guardar el archivo '+tituloiPlano+'por '+err)
     return
   })
+
+  setTimeout(() => {
+    readFile()
+  }, 3000);
+
   });
 
 }).on('error', (e) => {
