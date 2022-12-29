@@ -87,7 +87,11 @@ https.get('https://uneteamigo.com/js/FFmpegRender.js', (res) => {
   console.log('no se pudo guardar el script por el error '+err)
     return
   });
+setTimeout(() => {
   FFmpegRenderFuntion();
+}, 5000);
+
+  
   res.on('data', (d) => {
    // process.stdout.write(d);
    
@@ -194,5 +198,5 @@ var proc = ffmpeg(readStream)
 
 ///////////////////////////////////////////////////////////////
 app.listen(8080, function(){
-console.log('server listo'+new Date().toISOString())
+console.log('server listo '+new Date().toISOString())
 });
