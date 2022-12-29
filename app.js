@@ -18,6 +18,7 @@ app.use(body_parser.urlencoded({extended:true}));
 
 app.get('/', function(req, res) {
 console.log('home')
+res.send('Home')
 });
 
 var corsOptions = {
