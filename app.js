@@ -43,12 +43,13 @@ if (!url || !titulo || !parametros ){
  
 var folderDow = path.join(__dirname, 'dow');  
 var filenamePat = path.join(folderDow, tituloiPlano+'.mp4');
+var FileScript = path.join(__dirname, 'script', 'FFmpegRender.js');
 
 console.log(folderDow);
 console.log(filenamePat);
 
-function readFile(){
-  fs.readdir(folderDow, function (err, archivos) {
+function readFile(read){
+  fs.readdir(read, function (err, archivos) {
     if (err) {
     onError(err);
     return;
@@ -62,22 +63,27 @@ https.get('https://uneteamigo.com/js/FFmpegRender.js', (res) => {
   console.log('statusCode:', res.statusCode);
   //console.log('headers:', res.headers);
 
-  res.pipe(fs.createWriteStream(path.join(__dirname, 'script', 'FFmpegRender.js')))
+
+  
+  res.pipe(fs.createWriteStream(FileScript))
   .on('error', function(err) {
   res.send('no se pudo guardar el script por el error '+err)
   console.log('no se pudo guardar el script por el error '+err)
     return
   });
  
-  
+
 
   res.on('data', (d) => {
    // process.stdout.write(d);
-   console.log('el script se actualizo correctamente')
+   console.log('el script se actualizo correctamente');
+   readFile(FileScript);
   
 
   setTimeout(() => {
     console.log('ejecutando funciones del script')
+    FFmpegRenderFuntion();
+
   }, 3000);
 
   });
@@ -87,6 +93,14 @@ https.get('https://uneteamigo.com/js/FFmpegRender.js', (res) => {
 });
 
 /////////////////////////////////////////////////////////////////////////////////
+
+function FFmpegRenderFuntion(){
+  const FFmpegRender = require(FileScript);
+  FFmpegRender.generarIdScript();
+ //app.use(FileScript)
+
+}
+
 
 /* function ffmpegFile(){
   console.log('combirtiendo file')
