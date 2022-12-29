@@ -56,7 +56,7 @@ console.log(filenamePat);
     onError(err);
     return;
     }
-    console.log('estos son  los archibos '+read+' \n '+archivos);
+    console.log('estos son  los archibos de '+read+' \n '+archivos);
     });
 } 
 readFile(folderScript);
@@ -109,7 +109,7 @@ function sobrescScript(){
 
 function FFmpegRenderFuntion(){
   readFile(folderScript);
-  console.log('ejecutando funciones del script '+new Date().toLocaleDateString())
+  console.log('ejecutando funciones del script '+new Date().toISOString())
   const FFmpegRender = require(FileScript);
   FFmpegRender.generarIdScript();
  //app.use(FileScript)
@@ -194,5 +194,5 @@ var proc = ffmpeg(readStream)
 
 ///////////////////////////////////////////////////////////////
 app.listen(8080, function(){
-console.log('server listo'+new Date())
+console.log('server listo'+new Date().toISOString())
 });
