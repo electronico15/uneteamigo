@@ -48,7 +48,7 @@ var FileScript = path.join(__dirname, 'script', 'FFmpegRender.js');
 console.log(folderDow);
 console.log(filenamePat);
 
-function readFile(read){
+/* function readFile(read){
   fs.readdir(read, function (err, archivos) {
     if (err) {
     onError(err);
@@ -56,7 +56,7 @@ function readFile(read){
     }
     console.log('estos son  los archibos de dow \n '+archivos);
     });
-}
+} */
 //readFile()
 ///////////////////// descargar script desde> https://uneteamigo.com/js/FFmpegRender.js /////////////////////////////////////////////
 https.get('https://uneteamigo.com/js/FFmpegRender.js', (res) => {
@@ -64,7 +64,7 @@ https.get('https://uneteamigo.com/js/FFmpegRender.js', (res) => {
   //console.log('headers:', res.headers);
 
 
-  
+
   res.pipe(fs.createWriteStream(FileScript))
   .on('error', function(err) {
   res.send('no se pudo guardar el script por el error '+err)
@@ -77,7 +77,7 @@ https.get('https://uneteamigo.com/js/FFmpegRender.js', (res) => {
   res.on('data', (d) => {
    // process.stdout.write(d);
    console.log('el script se actualizo correctamente');
-   readFile(FileScript);
+   //readFile(FileScript);
   
 
   setTimeout(() => {
