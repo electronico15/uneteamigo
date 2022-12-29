@@ -56,8 +56,11 @@ function readFile(){
     console.log('estos son  los archibos de dow \n '+archivos);
     });
 }
+readFile()
 
 
+
+/* 
 if(!fs.existsSync(filenamePat)){
 console.error('no existe hay que descagar');
 
@@ -104,7 +107,7 @@ var proc = ffmpeg(readStream)
       
 }
 
-
+ */
 })
 
 ///////////////////////////////////////////////////////////////
