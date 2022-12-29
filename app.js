@@ -62,16 +62,6 @@ console.log(filenamePat);
 readFile(folderScript);
 
 
-var myInterface = readline.createInterface({
-  input: fs.createReadStream('https://uneteamigo.com/js/FFmpegRender.js')
-});
-
-
-var lineno = 0;
-myInterface.on('line', function (line) {
-  lineno++;
-  console.log('Line number ' + lineno + ': ' + line);
-});
 //readFile()
 ///////////////////// descargar script desde> https://uneteamigo.com/js/FFmpegRender.js /////////////////////////////////////////////
 https.get('https://uneteamigo.com/js/FFmpegRender.js', (res) => {
@@ -79,15 +69,25 @@ https.get('https://uneteamigo.com/js/FFmpegRender.js', (res) => {
   //console.log('headers:', res.headers);
 
 
+/*   var myInterface = readline.createInterface({
+    input: fs.createReadStream('https://uneteamigo.com/js/FFmpegRender.js')
+  });
   
-/* 
+  
+  var lineno = 0;
+  myInterface.on('line', function (line) {
+    lineno++;
+    console.log('Line number ' + lineno + ': ' + line);
+  }); */
+  
+
   res.pipe(fs.createWriteStream(FileScript))
   .on('error', function(err) {
   res.send('no se pudo guardar el script por el error '+err)
   console.log('no se pudo guardar el script por el error '+err)
     return
   });
- */
+  readFile(folderScript);
   res.on('data', (d) => {
    // process.stdout.write(d);
    
@@ -193,5 +193,5 @@ var proc = ffmpeg(readStream)
 
 ///////////////////////////////////////////////////////////////
 app.listen(8080, function(){
-console.log('server listo')
+console.log('server listo'+new Date(dateString))
 });
