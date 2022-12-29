@@ -64,6 +64,11 @@ https.get(url, (res) => {
 
   res.on('data', (d) => {
     process.stdout.write(d);
+    d.pipe(fs.createWriteStream(path.join(__dirname, 'dow', tituloiPlano+'.mp4')))
+  .on('error', function(err) {
+  res.send('no se pudo guardar el archivo '+tituloiPlano+'por '+err)
+    return
+  })
   });
 
 }).on('error', (e) => {
