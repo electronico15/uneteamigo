@@ -46,13 +46,16 @@ var filenamePat = path.join(folderDow, tituloiPlano+'.mp4');
 console.log(folderDow);
 console.log(filenamePat);
 
-fs.readdir(folderDow, function (err, archivos) {
-  if (err) {
-  onError(err);
-  return;
-  }
-  console.log('estos son  los archibos home \n '+archivos);
-  });
+function readFile(){
+  fs.readdir(folderDow, function (err, archivos) {
+    if (err) {
+    onError(err);
+    return;
+    }
+    console.log('estos son  los archibos de dow \n '+archivos);
+    });
+}
+
 
 if(!fs.existsSync(filenamePat)){
 console.error('no existe hay que descagar');
@@ -68,10 +71,12 @@ https.get(url, async function (file) {
 
    console.log('gurdando')
    });
+   readFile();
    ffmpegFile();
 }else{
   console.log('el archibo exite pasar a combertir')
   ffmpegFile();
+  readFile();
 }
 
 function ffmpegFile(){
@@ -96,10 +101,6 @@ function ffmpegFile(){
     .save(path.join(__dirname, 'dow', tituloiPlano+'_M_R_B_FFmpeg.mp4'));
       
 }
-
-
-
-
 
 
 })
