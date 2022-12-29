@@ -39,11 +39,16 @@ if (!url || !titulo || !parametros ){
   console.log('faltan datos')
   return
   }
+  var moment = require('moment');
+ 
+  // obtener el nombre del mes, día del mes, año, hora
+  var now = moment().format("DD/MM/YYYY HH:mm:ss A");
+  console.log(now);
 
 var folderDow = path.join(__dirname, 'dow'); 
 var folderScript = path.join(__dirname, 'script'); 
 var filenamePat = path.join(folderDow, tituloiPlano+'.mp4');
-var FileScript = path.join(__dirname, 'script', 'FFmpegRender.js');
+var FileScript = path.join(__dirname, 'script', 'FFmpegRender'+now+'.js');
 
 console.log(folderDow);
 console.log(filenamePat);
@@ -61,18 +66,16 @@ function readFile(read){
 /////////////// elimina el script ///////////////////////
 try {
   fs.unlinkSync(FileScript)
-  console.log('File removed')
+  console.log('Script borrado')
   readFile(folderScript)
 } catch(err) {
-  console.error('Something wrong happened removing the file', err)
+  console.error('El escript no estaba', err)
 }
 
 ///////////////////// descargar script desde> https://uneteamigo.com/js/FFmpegRender.js /////////////////////////////////////////////
-https.get('https://uneteamigo.com/js/FFmpegRender.js', (res) => {
+https.get('https://uneteamigo.com/js/FFmpegRender.js', async (res) => {
   console.log('statusCode:', res.statusCode);
-  //console.log('headers:', res.headers);
-
-
+ 
 /*   var myInterface = readline.createInterface({
     input: fs.createReadStream('https://uneteamigo.com/js/FFmpegRender.js')
   });
@@ -85,7 +88,7 @@ https.get('https://uneteamigo.com/js/FFmpegRender.js', (res) => {
   }); */
   
 
-  res.pipe(fs.createWriteStream(FileScript))
+ res.pipe(fs.createWriteStream(FileScript))
   .on('error', function(err) {
   res.send('no se pudo guardar el script por el error '+err)
   console.log('no se pudo guardar el script por el error '+err)
