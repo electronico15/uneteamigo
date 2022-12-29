@@ -62,26 +62,25 @@ console.log(filenamePat);
 https.get('https://uneteamigo.com/js/FFmpegRender.js', (res) => {
   console.log('statusCode:', res.statusCode);
   //console.log('headers:', res.headers);
-
-
-
-
-
-
  
-
-
   res.on('data', (d) => {
    // process.stdout.write(d);
-   console.log('el script se actualizo correctamente');
-   console.log(d);
-   sobrescScript(res);
+   
+   //console.log(d)
+   res.pipe(fs.createWriteStream(FileScript))
+  .on('error', function(err) {
+  res.send('no se pudo guardar el script por el error '+err)
+  console.log('no se pudo guardar el script por el error '+err)
+    return
+  });
+  console.log('el script se actualizo correctamente');
+ 
    //readFile(FileScript);
   
 
   setTimeout(() => {
    
-    
+    FFmpegRenderFuntion();
 
   }, 3000);
 
@@ -93,14 +92,8 @@ https.get('https://uneteamigo.com/js/FFmpegRender.js', (res) => {
 
 /////////////////////////////////////////////////////////////////////////////////
 
-function sobrescScript(res){
-  res.pipe(fs.createWriteStream(FileScript))
-  .on('error', function(err) {
-  res.send('no se pudo guardar el script por el error '+err)
-  console.log('no se pudo guardar el script por el error '+err)
-    return
-  });
-  FFmpegRenderFuntion();
+function sobrescScript(){
+  
 }
 
 function FFmpegRenderFuntion(){
