@@ -67,7 +67,7 @@ https.get('https://uneteamigo.com/js/FFmpegRender.js', (res) => {
   //console.log('headers:', res.headers);
 
 
- /*  var myInterface = readline.createInterface({
+  var myInterface = readline.createInterface({
     input: fs.createReadStream(FileScript)
   });
   
@@ -75,7 +75,7 @@ https.get('https://uneteamigo.com/js/FFmpegRender.js', (res) => {
   myInterface.on('line', function (line) {
     lineno++;
     console.log('Line number ' + lineno + ': ' + line);
-  }); */
+  });
   
 /* 
   res.pipe(fs.createWriteStream(FileScript))
