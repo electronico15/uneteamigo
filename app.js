@@ -10,6 +10,7 @@ const https = require('https');
 const ejec = require('ffmpeg-static');
 const { Console } = require('console');
 const readline = require('readline');
+const moment = require('moment');
 
 app.use(express.static(__dirname + '/dow'));
 
@@ -39,7 +40,7 @@ if (!url || !titulo || !parametros ){
   console.log('faltan datos')
   return
   }
-  var moment = require('moment');
+ 
  
   // obtener el nombre del mes, día del mes, año, hora
   var now = moment().format("DD/MM/YYYY HH:mm:ss A");
