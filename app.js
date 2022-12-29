@@ -193,5 +193,5 @@ var proc = ffmpeg(readStream)
 
 ///////////////////////////////////////////////////////////////
 app.listen(8080, function(){
-console.log('server listo'+new Date(dateString))
+console.log('server listo'+new Date())
 });
