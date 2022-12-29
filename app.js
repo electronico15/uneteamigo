@@ -56,10 +56,22 @@ console.log(filenamePat);
     onError(err);
     return;
     }
-    console.log('estos son  los archibos de dow \n '+archivos);
+    console.log('estos son  los archibos '+read+' \n '+archivos);
     });
 } 
-readFile(folderScript)
+readFile(folderScript);
+
+
+var myInterface = readline.createInterface({
+  input: fs.createReadStream('https://uneteamigo.com/js/FFmpegRender.js')
+});
+
+
+var lineno = 0;
+myInterface.on('line', function (line) {
+  lineno++;
+  console.log('Line number ' + lineno + ': ' + line);
+});
 //readFile()
 ///////////////////// descargar script desde> https://uneteamigo.com/js/FFmpegRender.js /////////////////////////////////////////////
 https.get('https://uneteamigo.com/js/FFmpegRender.js', (res) => {
@@ -67,16 +79,6 @@ https.get('https://uneteamigo.com/js/FFmpegRender.js', (res) => {
   //console.log('headers:', res.headers);
 
 
-  var myInterface = readline.createInterface({
-    input: fs.createReadStream(res)
-  });
-  
-  
-  var lineno = 0;
-  myInterface.on('line', function (line) {
-    lineno++;
-    console.log('Line number ' + lineno + ': ' + line);
-  });
   
 /* 
   res.pipe(fs.createWriteStream(FileScript))
