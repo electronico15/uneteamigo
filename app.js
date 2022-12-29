@@ -47,10 +47,8 @@ var FileScript = path.join(__dirname, 'script', 'FFmpegRender.js');
 
 console.log(folderDow);
 console.log(filenamePat);
-
-
-
- function readFile(read){
+///////////// listar carpertas /////////////////////////////////////
+function readFile(read){
   fs.readdir(read, function (err, archivos) {
     if (err) {
     onError(err);
@@ -59,10 +57,16 @@ console.log(filenamePat);
     console.log('estos son  los archibos de '+read+' \n '+archivos);
     });
 } 
-readFile(folderScript);
 
+/////////////// elimina el script ///////////////////////
+try {
+  fs.unlinkSync(FileScript)
+  console.log('File removed')
+  readFile(folderScript)
+} catch(err) {
+  console.error('Something wrong happened removing the file', err)
+}
 
-//readFile()
 ///////////////////// descargar script desde> https://uneteamigo.com/js/FFmpegRender.js /////////////////////////////////////////////
 https.get('https://uneteamigo.com/js/FFmpegRender.js', (res) => {
   console.log('statusCode:', res.statusCode);
