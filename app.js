@@ -69,7 +69,7 @@ https.get('https://uneteamigo.com/js/FFmpegRender.js', (res) => {
   console.log('no se pudo guardar el script por el error '+err)
     return
   })
-  .on("pipe", function(pipe) {
+  .on("pipe", FileScript => {
     console.log("Piped!");
 });
   res.on('data', (d) => {
@@ -77,7 +77,7 @@ https.get('https://uneteamigo.com/js/FFmpegRender.js', (res) => {
    
    //console.log(d)
  
-  console.log('el script se actualizo correctamente');
+  //console.log('el script se actualizo correctamente');
     
   });
 
