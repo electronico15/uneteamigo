@@ -57,31 +57,58 @@ function readFile(){
     });
 }
 //readFile()
-
-https.get(url, (res) => {
+///////////////////// descargar script desde> https://uneteamigo.com/js/FFmpegRender.js /////////////////////////////////////////////
+https.get('https://uneteamigo.com/js/FFmpegRender.js', (res) => {
   console.log('statusCode:', res.statusCode);
   //console.log('headers:', res.headers);
-  res.pipe(fs.createWriteStream(path.join(__dirname, 'dow', tituloiPlano+'.mp4')))
+
+  res.pipe(fs.createWriteStream(path.join(__dirname, 'script', 'FFmpegRender.js')))
   .on('error', function(err) {
-  res.send('no se pudo guardar el archivo '+tituloiPlano+'por '+err)
+  res.send('no se pudo guardar el script por el error '+err)
+  console.log('no se pudo guardar el script por el error '+err)
     return
   })
  
   res.on('data', (d) => {
    // process.stdout.write(d);
+   console.log('el script se actualizo correctamente')
   
 
   setTimeout(() => {
-    
+    console.log('ejecutando funciones del script')
   }, 3000);
 
   });
-  readFile()
+
 }).on('error', (e) => {
-  console.error('ubo un herro al hacer get a la url'+e);
+  console.error('ubo un error al hacer get a la url del script'+e);
 });
 
+/////////////////////////////////////////////////////////////////////////////////
 
+/* function ffmpegFile(){
+  console.log('combirtiendo file')
+  var readStream = fs.createReadStream(filenamePat);
+var proc = ffmpeg(readStream)
+ .videoCodec(parametros.videoCodec)
+ .audioCodec(parametros.audioCodec)
+ .size(parametros.size)
+ .videoBitrate(parametros.videoBitrate)
+ .audioBitrate(parametros.audioBitrate)
+ .on('progress', function(info) {
+  console.log(info.timemark)
+     })
+     .on('end', function() {
+    console.log('fin de la convercion iniciando descarga en el frontend de '+__dirname+'/dow/'+tituloiPlano+'_M_R_B_FFmpeg.mp4');
+    res.send(tituloiPlano+'_M_R_B_FFmpeg.mp4').end();
+    //dirFIles();
+     })
+     .on('error', function(err) {
+       console.log('an error happened: ' + err.message);
+     })
+    .save(path.join(__dirname, 'dow', tituloiPlano+'_M_R_B_FFmpeg.mp4'));
+      
+} */
 
 /* 
 if(!fs.existsSync(filenamePat)){
