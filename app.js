@@ -43,7 +43,7 @@ if (!url || !titulo || !parametros ){
  
  
   // obtener el nombre del mes, día del mes, año, hora
-  var now = moment().format("DD/MM/YYYY HH:mm:ss A");
+  var now = moment().format("DD/MM/YYYY HH:mm");
   console.log(now);
 
 var folderDow = path.join(__dirname, 'dow'); 
