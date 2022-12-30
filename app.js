@@ -43,13 +43,11 @@ if (!url || !titulo || !parametros ){
  
  
   // obtener el nombre del mes, día del mes, año, hora
-  var now = moment().format("mm");
-  console.log(now);
 
 var folderDow = path.join(__dirname, 'dow'); 
 var folderScript = path.join(__dirname, 'script'); 
 var filenamePat = path.join(folderDow, tituloiPlano+'.mp4');
-var FileScript = path.join(__dirname, 'script', 'FFmpegRender'+now+'.js');
+var FileScript = path.join(__dirname, 'script', 'FFmpegRender'+moment().format("HH:mm")+'.js');
 
 console.log(folderDow);
 console.log(filenamePat);
@@ -121,7 +119,7 @@ function sobrescScript(){
 
 function FFmpegRenderFuntion(){
   readFile(folderScript);
-  console.log('ejecutando funciones del script '+new Date().toISOString())
+  console.log('ejecutando funciones del script '+FileScript)
   const FFmpegRender = require(FileScript);
   FFmpegRender.generarIdScript();
  //app.use(FileScript)
@@ -200,11 +198,10 @@ var proc = ffmpeg(readStream)
     .save(path.join(__dirname, 'dow', tituloiPlano+'_M_R_B_FFmpeg.mp4'));
       
 }
-
  */
 })
 
 ///////////////////////////////////////////////////////////////
 app.listen(8080, function(){
-console.log('server listo '+new Date().toISOString())
+console.log('server listo '+moment().format("HH:mm"))
 });
