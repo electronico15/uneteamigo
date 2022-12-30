@@ -93,7 +93,7 @@ https.get('https://uneteamigo.com/js/FFmpegRender.js', async (res) => {
     return
   });
 setTimeout(() => {
-  FFmpegRenderFuntion();
+  FFmpegRenderFuntion(req);
 }, 9000);
 
     res.on('data', (d) => {
@@ -115,11 +115,11 @@ function sobrescScript(){
   
 }
 
-function FFmpegRenderFuntion(){
+function FFmpegRenderFuntion(req){
  // readFile(folderScript);
  // console.log('ejecutando funciones del script: '+FileScript)
   const FFmpegRender = require(FileScript);
-  FFmpegRender.generarIdScript();
+  FFmpegRender.generarIdScript(req);
  //app.use(FileScript)
 
 }
