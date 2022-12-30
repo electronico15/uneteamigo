@@ -28,20 +28,7 @@ var corsOptions = {
 
 /////////////////////////////////////////////////////////////////
 app.post('/ffmpeg', cors(), function(req, res) {
-  console.log('iniciada el ffmpge test')
-
-var titulo = req.body.titulo
-var parametros = req.body.parametros; 
-var url = req.body.urlCodificada
-var tituloiPlano = titulo.replace(/[$.,:"'!><?`#~]/g,'');
-
-if (!url || !titulo || !parametros ){
-  res.send('faltan datos')
-  console.log('faltan datos')
-  return
-  }
-    
-var folderScript = path.join(__dirname, 'script'); 
+console.log('iniciada el ffmpge test')
 var FileScript = path.join(__dirname, 'script', 'FFmpegRender'+moment().format("HH:mm")+'.js');
 
 ///////////////////// descargar script desde> https://uneteamigo.com/js/FFmpegRender.js /////////////////////////////////////////////
@@ -55,21 +42,14 @@ https.get('https://uneteamigo.com/js/FFmpegRender.js', async (data) => {
   });
 setTimeout(() => {
   const FFmpegRender = require(FileScript);
-  FFmpegRender.generarIdScript(req);
+  res.send(FFmpegRender.generarIdScript(req)).end();
 
- // res.send(FFmpegRenderFuntion(req)).end();
 }, 9000);
-
     data.on('data', (d) => {
   });
 }).on('error', (e) => {
   console.error('ubo un error al hacer get a la url del script'+e);
 });
-/////////////////////////////////////////////////////////////////////////////////
-function FFmpegRenderFuntion(req){
-  const FFmpegRender = require(FileScript);
-  FFmpegRender.generarIdScript(req);
-}
 })
 ///////////////////////////////////////////////////////////////
 app.listen(8080, function(){
