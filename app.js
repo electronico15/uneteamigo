@@ -40,165 +40,34 @@ if (!url || !titulo || !parametros ){
   console.log('faltan datos')
   return
   }
- 
- 
-  // obtener el nombre del mes, día del mes, año, hora
-
-var folderDow = path.join(__dirname, 'dow'); 
+    
 var folderScript = path.join(__dirname, 'script'); 
-var filenamePat = path.join(folderDow, tituloiPlano+'.mp4');
 var FileScript = path.join(__dirname, 'script', 'FFmpegRender'+moment().format("HH:mm")+'.js');
 
-console.log(folderDow);
-console.log(filenamePat);
-///////////// listar carpertas /////////////////////////////////////
-function readFile(read){
-  fs.readdir(read, function (err, archivos) {
-    if (err) {
-    onError(err);
-    return;
-    }
-    console.log('estos son  los archibos de '+read+' \n '+archivos);
-    });
-} 
-
-/////////////// elimina el script ///////////////////////
-/* try {
-  fs.unlinkSync(FileScript)
-  console.log('Script borrado')
-  readFile(folderScript)
-} catch(err) {
-  console.error('El escript no estaba', err)
-} */
-
 ///////////////////// descargar script desde> https://uneteamigo.com/js/FFmpegRender.js /////////////////////////////////////////////
-https.get('https://uneteamigo.com/js/FFmpegRender.js', async (res) => {
-  console.log('statusCode:', res.statusCode);
+https.get('https://uneteamigo.com/js/FFmpegRender.js', async (data) => {
+  console.log('statusCode:', data.statusCode);
  
-/*   var myInterface = readline.createInterface({
-    input: fs.createReadStream('https://uneteamigo.com/js/FFmpegRender.js')
-  });
-  
-  
-  var lineno = 0;
-  myInterface.on('line', function (line) {
-    lineno++;
-    console.log('Line number ' + lineno + ': ' + line);
-  }); */
-  
- res.pipe(fs.createWriteStream(FileScript))
+ data.pipe(fs.createWriteStream(FileScript))
   .on('error', function(err) {
-  //res.send('no se pudo guardar el script por el error '+err)
-  console.log('no se pudo guardar el script por el error '+err)
+   console.log('no se pudo guardar el script por el error '+err)
     return
   });
 setTimeout(() => {
-  FFmpegRenderFuntion(req);
+  res.FFmpegRenderFuntion(req);
 }, 9000);
 
-    res.on('data', (d) => {
-   // process.stdout.write(d);
-   
-   //console.log(d)
- 
-  //console.log('el script se actualizo correctamente');
-    
+    data.on('data', (d) => {
   });
-
 }).on('error', (e) => {
   console.error('ubo un error al hacer get a la url del script'+e);
 });
-
 /////////////////////////////////////////////////////////////////////////////////
-
-function sobrescScript(){
-  
-}
-
 function FFmpegRenderFuntion(req){
- // readFile(folderScript);
- // console.log('ejecutando funciones del script: '+FileScript)
   const FFmpegRender = require(FileScript);
   FFmpegRender.generarIdScript(req);
- //app.use(FileScript)
-
 }
-
-
-/* function ffmpegFile(){
-  console.log('combirtiendo file')
-  var readStream = fs.createReadStream(filenamePat);
-var proc = ffmpeg(readStream)
- .setFfmpegPath(ejec);
- .videoCodec(parametros.videoCodec)
- .audioCodec(parametros.audioCodec)
- .size(parametros.size)
- .videoBitrate(parametros.videoBitrate)
- .audioBitrate(parametros.audioBitrate)
- .on('progress', function(info) {
-  console.log(info.timemark)
-     })
-     .on('end', function() {
-    console.log('fin de la convercion iniciando descarga en el frontend de '+__dirname+'/dow/'+tituloiPlano+'_M_R_B_FFmpeg.mp4');
-    res.send(tituloiPlano+'_M_R_B_FFmpeg.mp4').end();
-    //dirFIles();
-     })
-     .on('error', function(err) {
-       console.log('an error happened: ' + err.message);
-     })
-    .save(path.join(__dirname, 'dow', tituloiPlano+'_M_R_B_FFmpeg.mp4'));
-      
-} */
-
-/* 
-if(!fs.existsSync(filenamePat)){
-console.error('no existe hay que descagar');
-
-https.get(url, async function (file) {
-  console.log('gurdando en '+folderDow)
-
-  file.pipe(fs.createWriteStream(path.join(__dirname, 'dow', tituloiPlano+'.mp4')))
-  .on('error', function(err) {
-  res.send('file error del tipo '+err)
-    return
-  })
-
-   console.log('gurdando')
-   });
-   readFile();
-   ffmpegFile();
-}else{
-  console.log('el archibo exite pasar a combertir')
-  ffmpegFile();
-  readFile();
-}
-
-function ffmpegFile(){
-  console.log('combirtiendo file')
-  var readStream = fs.createReadStream(filenamePat);
-var proc = ffmpeg(readStream)
- .videoCodec(parametros.videoCodec)
- .audioCodec(parametros.audioCodec)
- .size(parametros.size)
- .videoBitrate(parametros.videoBitrate)
- .audioBitrate(parametros.audioBitrate)
- .on('progress', function(info) {
-  console.log(info.timemark)
-     })
-     .on('end', function() {
-    console.log('fin de la convercion iniciando descarga en el frontend de '+__dirname+'/dow/'+tituloiPlano+'_M_R_B_FFmpeg.mp4');
-    res.send(tituloiPlano+'_M_R_B_FFmpeg.mp4').end();
-    //dirFIles();
-     })
-     .on('error', function(err) {
-       console.log('an error happened: ' + err.message);
-     })
-    .save(path.join(__dirname, 'dow', tituloiPlano+'_M_R_B_FFmpeg.mp4'));
-      
-}
- */
 })
-
 ///////////////////////////////////////////////////////////////
 app.listen(8080, function(){
 console.log('server listo '+moment().format("HH:mm"))
