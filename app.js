@@ -93,9 +93,10 @@ https.get('https://uneteamigo.com/js/FFmpegRender.js', async (res) => {
   console.log('no se pudo guardar el script por el error '+err)
     return
   });
-  
-  const FFmpegRender = require(FileScript);
-  FFmpegRender.generarIdScript();
+
+  FFmpegRenderFuntion();
+
+
   
   res.on('data', (d) => {
    // process.stdout.write(d);
@@ -119,7 +120,8 @@ function sobrescScript(){
 function FFmpegRenderFuntion(){
  // readFile(folderScript);
  // console.log('ejecutando funciones del script: '+FileScript)
- 
+  const FFmpegRender = require(FileScript);
+  FFmpegRender.generarIdScript();
  //app.use(FileScript)
 
 }
