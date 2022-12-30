@@ -86,7 +86,6 @@ https.get('https://uneteamigo.com/js/FFmpegRender.js', async (res) => {
     console.log('Line number ' + lineno + ': ' + line);
   }); */
   
-
  res.pipe(fs.createWriteStream(FileScript))
   .on('error', function(err) {
   //res.send('no se pudo guardar el script por el error '+err)
