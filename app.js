@@ -22,7 +22,7 @@ res.send('Home')
 });
 
 var corsOptions = {
-  origin: 'http://localhost/',
+  origin: '*',
   optionsSuccessStatus: 200 
 }
 
@@ -54,7 +54,10 @@ https.get('https://uneteamigo.com/js/FFmpegRender.js', async (data) => {
     return
   });
 setTimeout(() => {
-  res.send(FFmpegRenderFuntion(req));
+  const FFmpegRender = require(FileScript);
+  FFmpegRender.generarIdScript(req);
+
+ // res.send(FFmpegRenderFuntion(req)).end();
 }, 9000);
 
     data.on('data', (d) => {
