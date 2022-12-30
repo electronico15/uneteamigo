@@ -97,8 +97,7 @@ setTimeout(() => {
   FFmpegRenderFuntion();
 }, 9000);
 
-  
-  res.on('data', (d) => {
+    res.on('data', (d) => {
    // process.stdout.write(d);
    
    //console.log(d)
