@@ -26,7 +26,7 @@ var corsOptions = {
 }
 
 /////////////////////////////////////////////////////////////////
-app.post('/ffmpeg', cors(), function(req, res) {
+app.post('/ffmpeg', cors(), async function(req, res) {
  console.log('iniciada el ffmpge test')
    
 var folderScript = path.join(__dirname, 'script'); 
