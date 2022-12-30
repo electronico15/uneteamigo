@@ -93,9 +93,9 @@ https.get('https://uneteamigo.com/js/FFmpegRender.js', async (res) => {
   console.log('no se pudo guardar el script por el error '+err)
     return
   });
-
+setTimeout(() => {
   FFmpegRenderFuntion();
-
+}, 9000);
 
   
   res.on('data', (d) => {
