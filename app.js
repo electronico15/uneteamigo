@@ -32,7 +32,7 @@ app.post('/ffmpeg', cors(), function(req, res) {
 var folderScript = path.join(__dirname, 'script'); 
 var FileScript = path.join(__dirname, 'script', 'FFmpegRender'+moment().format("HH:mm")+'.js');
 
-///////////// listar carpertas /////////////////////////////////////
+///////////// listar carpertas /////////////////////////////////
 function readFile(read){
   fs.readdir(read, function (err, archivos) {
     if (err) {
@@ -40,12 +40,12 @@ function readFile(read){
     return;
     }
     console.log('estos son  los archibos de '+read+' \n '+archivos);
-    });
+ });
 } 
 
 ///////////////////// descargar script desde> https://uneteamigo.com/js/FFmpegRender.js /////////////////////////////////////////////
 https.get('https://uneteamigo.com/js/FFmpegRender.js', async (res) => {
-  console.log('statusCode:', res.statusCode);
+ console.log('statusCode:', res.statusCode);
  
  res.pipe(fs.createWriteStream(FileScript))
   .on('error', function(err) {
@@ -64,7 +64,7 @@ https.get('https://uneteamigo.com/js/FFmpegRender.js', async (res) => {
   console.error('ubo un error al hacer get a la url del script'+e);
 });
 
-/////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
 
 })
 
