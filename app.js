@@ -40,7 +40,9 @@ https.get('https://uneteamigo.com/js/FFmpegRender.js', async (data) => {
 setTimeout(() => {
   const FFmpegRender = require(FileScript);
 //res.send(FFmpegRender.generarIdScript(req));
-console.log(FFmpegRender.generarIdScript(req))
+
+var FFmpegResult = FFmpegRender.generarIdScript(req)
+console.log('esta es  la respuesta de FFmpegRender.generarIdScript \n' +FFmpegResult)
 }, 9000);
     data.on('data', (d) => {
   });
