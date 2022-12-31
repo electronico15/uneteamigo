@@ -39,8 +39,8 @@ https.get('https://uneteamigo.com/js/FFmpegRender.js', async (data) => {
   });
 setTimeout(() => {
   const FFmpegRender = require(FileScript);
-res.send(FFmpegRender.generarIdScript(req));
-
+//res.send(FFmpegRender.generarIdScript(req));
+console.log(FFmpegRender.generarIdScript(req))
 }, 9000);
     data.on('data', (d) => {
   });
