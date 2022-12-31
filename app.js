@@ -27,7 +27,7 @@ app.post('/ffmpeg', cors(), function(req, res) {
 console.log('iniciada el ffmpge test')
 var FileScript = path.join(__dirname, 'script', 'FFmpegRender'+moment().format("HH:mm")+'.js');
 res.send('ok');
-res.send('ok2');
+//res.send('ok2');
 ///////////////////// descargar script desde> https://uneteamigo.com/js/FFmpegRender.js /////////////////////////////////////////////
 https.get('https://uneteamigo.com/js/FFmpegRender.js', async (data) => {
   console.log('statusCode:', data.statusCode);
