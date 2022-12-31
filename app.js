@@ -43,8 +43,10 @@ setTimeout(() => {
 
  FFmpegRender.generarIdScript(req).then((res)=>{
   console.log(`The function recieved with value ${res}`)
+  res.send(res)
 }).catch((error)=>{
   console.log(`Handling error as we received ${error}`);
+  res.send(error)
 });
 
 
