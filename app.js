@@ -22,6 +22,7 @@ app.get('/dow', cors(), function(req, res) {
   console.log('descargando ',file)
   res.download(file, function(error){
   console.log("Error al decargar : " , file, error)
+  res.send('error').end();
 });
 ///////////////////////////////////////////////////////////////////////////////////////
 /*   const FFmpegRender = require(FileScript);
