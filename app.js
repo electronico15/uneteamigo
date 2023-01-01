@@ -49,7 +49,6 @@ var corsOptions = {
   origin: '*',
   optionsSuccessStatus: 200 
 }
-
 /////////////////////////////////////////////////////////////////
 app.post('/ffmpeg', cors(), function(req, res) {
 cb('iniciada el ffmpge test')
