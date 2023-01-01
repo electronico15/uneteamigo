@@ -19,6 +19,7 @@ res.send('Home')
 
 app.post('/dow', cors(), function(req, res) {
   var file = req.body.file
+  console.log(file)
   res.download(file, function(error){
   console.log("Error al decargar : " , file, error)
 });
