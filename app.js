@@ -19,7 +19,7 @@ res.send('Home')
 
 app.get('/dow', cors(), function(req, res) {
   var file = req.query.file
-  console.log(file)
+  console.log('descargando ',file)
   res.download(file, function(error){
   console.log("Error al decargar : " , file, error)
 });
