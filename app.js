@@ -17,6 +17,24 @@ console.log('home')
 res.send('Home')
 });
 
+app.post('/dow', cors(), function(req, res) {
+  var file = req.body.file
+  res.download(file, function(error){
+  console.log("Error al decargar : " , file, error)
+});
+/*   const FFmpegRender = require(FileScript);
+
+  FFmpegRender.donwloadV(req).then((res)=>{
+    console.log(`The function recieved with value ${res}`)
+    res.send(res)
+    res.donload
+  }).catch((error)=>{
+    console.log(`Handling error as we received ${error}`);
+    res.send(error)
+  }); */
+
+})
+
 var corsOptions = {
   origin: '*',
   optionsSuccessStatus: 200 
