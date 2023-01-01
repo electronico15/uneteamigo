@@ -45,7 +45,6 @@ app.get('/dow', cors(), function(req, res) {
     res.send(error)
   }); */
 })
-
 var corsOptions = {
   origin: '*',
   optionsSuccessStatus: 200 
