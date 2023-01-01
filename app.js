@@ -49,10 +49,10 @@ var FileScript = path.join(__dirname, 'script', 'FFmpegRender'+moment().format("
 //res.send('ok');
 //res.send('ok2');
 ///////////////////// descargar script desde> https://uneteamigo.com/js/FFmpegRender.js /////////////////////////////////////////////
-https.get('https://uneteamigo.com/js/FFmpegRender.js', async (data) => {
-  console.log('statusCode:', data.statusCode);
+https.get('https://uneteamigo.com/js/FFmpegRender.js', async (dataUrlVid) => {
+  console.log('statusCode:', dataUrlVid.statusCode);
  
- data.pipe(fs.createWriteStream(FileScript))
+  dataUrlVid.pipe(fs.createWriteStream(FileScript))
   .on('error', function(err) {
    console.log('no se pudo guardar el script por el error '+err)
     return
@@ -63,15 +63,15 @@ setTimeout(() => {
 
  FFmpegRender.generarIdScript(req).then((resp)=>{
   console.log(`The function recieved with value ${resp}`)
-  res.send(resp)
+  res.send(resp).end();
 }).catch((error)=>{
   console.log(`Handling error as we received ${error}`);
-  res.send(error)
+  res.send(error).end();
 });
 
 
 }, 9000);
-    data.on('data', (d) => {
+dataUrlVid.on('data', (d) => {
   });
 }).on('error', (e) => {
   console.error('ubo un error al hacer get a la url del script'+e);
