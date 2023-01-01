@@ -31,7 +31,7 @@ app.get('/dow', cors(), function(req, res) {
   var file = req.query.file
   cr('descargando ',file)
   res.download(path.join(__dirname, 'dow', file), function(error){
-  cr("Error al decargar : " , file, error)
+  ce("Error al decargar : " , file, error)
   res.send('error').end();
 });
 ///////////////////////////////////////////////////////////////////////////////////////
