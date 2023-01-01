@@ -44,7 +44,6 @@ app.get('/dow', cors(), function(req, res) {
     console.log(`Handling error as we received ${error}`);
     res.send(error)
   }); */
-
 })
 
 var corsOptions = {
