@@ -66,9 +66,7 @@ https.get('https://uneteamigo.com/js/FFmpegRender.js', async (dataUrlVid) => {
     return
   });
 setTimeout(() => {
-  const FFmpegRender = require(FileScript);
-//res.send(FFmpegRender.generarIdScript(req));
-
+ const FFmpegRender = require(FileScript);
  FFmpegRender.descargarYcombertirReq(req).then((resp)=>{
   cr(`enviando res.send(${resp})`);
   res.send(resp).end();
