@@ -28,11 +28,14 @@ res.send('Home')
 });
 /////////////////// funcion pra decargar el video solisitado en el req ////////////
 app.get('/dow', cors(), function(req, res) {
-  var file = req.query.file
-  cr('descargando ',file)
-  res.download(path.join(__dirname, 'dow', file), function(error){
-  ce("Error al decargar : " , file, error)
-  res.send('error').end();
+  cr('iniciando req /dow ',file)
+   var file = req.query.file
+   res.download(path.join(__dirname, 'dow', file), file ,error => {
+    if (error) ce("Error al decargar : " , file, error).res.send('error').end()
+    else console.log("[SUCCESS][RESOURCE] Installation file has been downloaded\r\n");
+
+  
+  
 });
 ///////////////////////////////////////////////////////////////////////////////////////
 /*   const FFmpegRender = require(FileScript);
