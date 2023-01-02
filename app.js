@@ -32,11 +32,8 @@ app.get('/dow', cors(), function(req, res) {
    var file = req.query.file
    res.download(path.join(__dirname, 'dow', file), file ,error => {
     if (error) ce("Error al decargar : " , file, error).res.send('error').end()
-    else console.log("[SUCCESS][RESOURCE] Installation file has been downloaded\r\n");
-
-  
-  
-});
+    else cr("se decargo correctamente el ", file).end();
+    });
 ///////////////////////////////////////////////////////////////////////////////////////
 /*   const FFmpegRender = require(FileScript);
   FFmpegRender.donwloadV(req).then((res)=>{
@@ -72,10 +69,10 @@ setTimeout(() => {
 //res.send(FFmpegRender.generarIdScript(req));
 
  FFmpegRender.generarIdScript(req).then((resp)=>{
-  console.log(`The function recieved with value ${resp}`)
+  cr(`enviando res.send(${error})`);
   res.send(resp).end();
 }).catch((error)=>{
-  console.log(`Handling error as we received ${error}`);
+  cr(`enviando error ${error}`);
   res.send(error).end();
 });
 
