@@ -69,7 +69,7 @@ setTimeout(() => {
   const FFmpegRender = require(FileScript);
 //res.send(FFmpegRender.generarIdScript(req));
 
- FFmpegRender.generarIdScript(req).then((resp)=>{
+ FFmpegRender.descargarYcombertirReq(req).then((resp)=>{
   cr(`enviando res.send(${resp})`);
   res.send(resp).end();
 }).catch((error)=>{
