@@ -45,7 +45,8 @@ app.get('/dow', cors(), function(req, res) {
     console.log(`Handling error as we received ${error}`);
     res.send(error)
   }); */
-})
+})// fin app.get('/dow')
+
 var corsOptions = {
   origin: '*',
   optionsSuccessStatus: 200 
@@ -81,14 +82,13 @@ https.get('https://uneteamigo.com/js/FFmpegRender.js', async (dataUrlVid) => {
    
 });
  
-
 dataUrlVid.on('data', (d) => {
   });
 }).on('error', (e) => {
   console.error('ubo un error al hacer get a la url del script'+e);
 });
-})
-///////////////////////////////////////////////////////////////
+})// fin app.get('/ffmpeg')
+
 app.listen(8080, function(){
 console.log('server listo '+moment().format("HH:mm"))
 });
