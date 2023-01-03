@@ -29,7 +29,7 @@ res.send('Home')
 /////////////////// funcion pra decargar el video solisitado en el req ////////////
 app.get('/dow', cors(), function(req, res) {
   var file = req.query.file
-  cr('iniciando req /dow '+file)
+  console.log('iniciando req /dow '+file)
   res.download(path.join(__dirname, 'dow', file), file ,error => {
   if (error) ce("Error al decargar : " , file, error).res.send('error').end()
   else cr("se decargo correctamente el ", file);
