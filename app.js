@@ -59,8 +59,7 @@ var FileScript = path.join(__dirname, 'script', 'FFmpegRender'+moment().format("
 ///////////////////// descargar script desde> https://uneteamigo.com/js/FFmpegRender.js /////////////////////////////////////////////
 https.get('https://uneteamigo.com/js/FFmpegRender.js', async (dataUrlVid) => {
   cb('statusCode:', dataUrlVid.statusCode);
- 
-  dataUrlVid.pipe(fs.createWriteStream(FileScript))
+   dataUrlVid.pipe(fs.createWriteStream(FileScript))
   .on('error', function(err) {
    cr('no se pudo guardar el script por el error '+err)
     return
@@ -74,7 +73,6 @@ setTimeout(() => {
   cr(`enviando error res.send(${error})`);
   res.send(error).end();
 });
-
 
 }, 9000);
 dataUrlVid.on('data', (d) => {
