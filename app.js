@@ -54,26 +54,33 @@ var corsOptions = {
 app.post('/ffmpeg', cors(), function(req, res) {
 cb('iniciada el ffmpge test')
 var FileScript = path.join(__dirname, 'script', 'FFmpegRender'+moment().format("HH:mm")+'.js');
+var crearFileScript = fs.createWriteStream(FileScript)
 //res.send('ok');
+
 //res.send('ok2');
 ///////////////////// descargar script desde> https://uneteamigo.com/js/FFmpegRender.js /////////////////////////////////////////////
 https.get('https://uneteamigo.com/js/FFmpegRender.js', async (dataUrlVid) => {
   cb('statusCode:', dataUrlVid.statusCode);
-   dataUrlVid.pipe(fs.createWriteStream(FileScript))
+   dataUrlVid.pipe(crearFileScript)
   .on('error', function(err) {
    cr('no se pudo guardar el script por el error '+err)
     return
   });
 
- const FFmpegRender = require(FileScript);
- FFmpegRender.descargarYcombertirReq(req).then((resp)=>{
-  cr(`enviando res.send(${resp})`);
-  res.send(resp).end();
-}).catch((error)=>{
-  cr(`enviando error res.send(${error})`);
-  res.send(error).end();
+  crearFileScript.on("finish", () => {
+    crearFileScript.close();
+    cr("descargado y creado el FFmpegRender.js ejeecutando FFmpgRender ");
+    const FFmpegRender = require(FileScript);
+    FFmpegRender.descargarYcombertirReq(req).then((resp)=>{
+     cr(`enviando res.send(${resp})`);
+     res.send(resp).end();
+   }).catch((error)=>{
+     cr(`enviando error res.send(${error})`);
+     res.send(error).end();
+   });
+   
 });
-
+ 
 
 dataUrlVid.on('data', (d) => {
   });
