@@ -64,7 +64,7 @@ https.get('https://uneteamigo.com/js/FFmpegRender.js', async (dataUrlVid) => {
    cr('no se pudo guardar el script por el error '+err)
     return
   });
-setTimeout(() => {
+
  const FFmpegRender = require(FileScript);
  FFmpegRender.descargarYcombertirReq(req).then((resp)=>{
   cr(`enviando res.send(${resp})`);
@@ -74,7 +74,7 @@ setTimeout(() => {
   res.send(error).end();
 });
 
-}, 9000);
+
 dataUrlVid.on('data', (d) => {
   });
 }).on('error', (e) => {
