@@ -103,10 +103,10 @@ https.get('https://uneteamigo.com/js/FFmpegRender.js', async (dataUrlVid) => {
     const FFmpegRender = require(FileScript);
     FFmpegRender.descargarYcombertirReq(req).then((resp)=>{
      cr(`enviando res.send(${resp})`);
-    // res.send(resp).end();
+     res.send(resp).end();
    }).catch((error)=>{
      cr(`enviando error res.send(${error})`);
-    // res.send(error).end();
+     res.send(error).end();
    });
    
 });
