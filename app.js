@@ -28,7 +28,7 @@ function ce(str){ //error rojo
 app.get('/', function(req, res) {
 console.log('home')
 res.send('Home')
-});
+}); //fi de '/'
 /////////////////// funcion pra decargar el video solisitado en el req ////////////
 app.get('/dow', cors(), function(req, res) {
   var file = req.query.file
@@ -37,11 +37,11 @@ app.get('/dow', cors(), function(req, res) {
   if (error) ce("Error al decargar : " , file, error).res.send('error').end()
   else cr("se decargo correctamente el ", file);
     //res.end();
-    });
+    });// fin de /dow
 
 app.get('/dowTest', cors(), function(req, res) {
       var file = req.query.file
-      
+      cr
 const ffmpegPipe = fs.createWriteStream('pipetest.mp3');
 const passStream = new stream.PassThrough();
 
@@ -65,7 +65,7 @@ ffmpegCommand.input(passStream)
   console.log('fin de la convercion');
   
    })
- });
+ });/// fin 
     
 
 /////////////////////////////////////////////////////////////////////////////
