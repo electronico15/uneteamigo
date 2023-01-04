@@ -33,7 +33,7 @@ app.get('/dow', cors(), function(req, res) {
   res.download(path.join(__dirname, 'dow', file), file ,error => {
   if (error) ce("Error al decargar : " , file, error).res.send('error').end()
   else cr("se decargo correctamente el ", file);
-    //res.end();
+    res.end();
     });// fin de /dow
 
 
@@ -108,8 +108,7 @@ https.get('https://uneteamigo.com/js/FFmpegRender.js', async (dataUrlVid) => {
      cr(`enviando error res.send(${error})`);
      res.send(error).end();
    });
-   
-});
+  });
  
 dataUrlVid.on('data', (d) => {
   });
