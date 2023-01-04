@@ -39,34 +39,7 @@ app.get('/dow', cors(), function(req, res) {
     //res.end();
     });// fin de /dow
 
-app.get('/dowTest', cors(), function(req, res) {
-      var file = req.query.file
-      cr('iniciando /dowTest')
-const ffmpegPipe = fs.createWriteStream('pipetest.mp3');
-const passStream = new stream.PassThrough();
 
-const video = ytdl('https://www.youtube.com/watch?v=lbSCWOkclHw', {
-  filter: 'audioonly',
-})
-.on('end', () => {
-  console.log('ytdl finished fetching file');
-});
-
-const ffmpegCommand = ffmpeg()
-.setFfmpegPath(ejec)
-.format('mp3')
-  .audioCodec('libmp3lame')
-  .output(ffmpegPipe);
-
-video.pipe(passStream);
-ffmpegCommand.input(passStream)
-.run()
-.on('end', function() {
-  console.log('fin de la convercion');
-  
-   })
- });/// fin 
-    
 
 /////////////////////////////////////////////////////////////////////////////
 /*   const FFmpegRender = require(FileScript);
@@ -79,6 +52,35 @@ ffmpegCommand.input(passStream)
     res.send(error)
   }); */
 })// fin app.get('/dow')
+
+app.get('/dowTest', cors(), function(req, res) {
+  //  var file = req.query.file
+    cr('iniciando /dowTest')
+const ffmpegPipe = fs.createWriteStream('pipetest.mp3');
+const passStream = new stream.PassThrough();
+
+const video = ytdl('https://www.youtube.com/watch?v=lbSCWOkclHw', {
+filter: 'audioonly',
+})
+.on('end', () => {
+console.log('ytdl finished fetching file');
+});
+
+const ffmpegCommand = ffmpeg()
+.setFfmpegPath(ejec)
+.format('mp3')
+.audioCodec('libmp3lame')
+.output(ffmpegPipe);
+
+video.pipe(passStream);
+ffmpegCommand.input(passStream)
+.run()
+.on('end', function() {
+console.log('fin de la convercion');
+
+ })
+});/// fin 
+  
 
 var corsOptions = {
   origin: '*',
