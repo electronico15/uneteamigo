@@ -7,10 +7,7 @@ const path = require('path');
 const cors = require('cors');
 const https = require('https');
 const moment = require('moment');
-var ffmpeg = require('fluent-ffmpeg');
-var ytdl = require('ytdl-core');
-const ejec = require('ffmpeg-static');
-const stream  = require("stream");
+
 app.use(express.static(__dirname + '/dow'));
 
 app.use(body_parser.urlencoded({extended:true}));
@@ -56,29 +53,7 @@ app.get('/dow', cors(), function(req, res) {
 app.get('/dowTest', cors(), function(req, res) {
   //  var file = req.query.file
     cr('iniciando /dowTest')
-const ffmpegPipe = fs.createWriteStream('pipetest.mp3');
-const passStream = new stream.PassThrough();
 
-const video = ytdl('https://www.youtube.com/watch?v=lbSCWOkclHw', {
-filter: 'audioonly',
-})
-.on('end', () => {
-console.log('ytdl finished fetching file');
-});
-
-const ffmpegCommand = ffmpeg()
-.setFfmpegPath(ejec)
-.format('mp3')
-.audioCodec('libmp3lame')
-.output(ffmpegPipe);
-
-video.pipe(passStream);
-ffmpegCommand.input(passStream)
-.run()
-.on('end', function() {
-console.log('fin de la convercion');
-
- })
 });/// fin 
   
 
