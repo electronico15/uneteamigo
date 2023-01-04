@@ -41,7 +41,7 @@ app.get('/dow', cors(), function(req, res) {
 
 app.get('/dowTest', cors(), function(req, res) {
       var file = req.query.file
-      cr
+      cr('iniciando /dowTest')
 const ffmpegPipe = fs.createWriteStream('pipetest.mp3');
 const passStream = new stream.PassThrough();
 
