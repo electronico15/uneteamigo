@@ -11,6 +11,7 @@ const ejec = require('ffmpeg-static');
 const ffmpeg = require('fluent-ffmpeg');
 const cp = require('child_process');
 const readline = require('readline');
+const ytdl = require('ytdl-core');
 const units = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
 
 
