@@ -1,4 +1,3 @@
-//324+5
 const express = require('express');
 const app = express();
 const fs = require("fs");
@@ -11,7 +10,6 @@ const ejec = require('ffmpeg-static');
 const ffmpeg = require('fluent-ffmpeg');
 const cp = require('child_process');
 const readline = require('readline');
-const ytdl = require('ytdl-core');
 const units = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
 
 
@@ -42,7 +40,8 @@ app.get("/downloadFFmpegRender", function (req, res) {
   ce('*******------start downloadFFmpegRender 1-----********');
   ce('******************************************************'); 
   var UrlVideoConAudio = req.query.UrlVideoConAudio.replace(/@i/g , "&").replace(/@al/g, "=");
-  var calidad =  req.query.calidad
+  var idViddeo= req.query.idViddeo;
+  var calidad =  req.query.calidad;
   var content = req.query.content;
   var extencion = req.query.extencion;
   var urlAudio = req.query.urlAudio.replace(/@i/g , "&").replace(/@al/g, "=");
@@ -52,7 +51,7 @@ app.get("/downloadFFmpegRender", function (req, res) {
  //var videoStream = new stream.PassThrough();
  //var videoWriteStream = fs.createWriteStream(tituloiPlano+'.mp4');   
 
-  const ref = 'https://www.youtube.com/watch?v=aqz-KE-bpKQ';
+  const ref = `https://www.youtube.com/watch?v=${idViddeo}`;
 const tracker = {
   start: Date.now(),
   audio: { downloaded: 0, total: Infinity },
@@ -102,10 +101,11 @@ const ffmpegProcess = cp.spawn(ejec, [
   // Map audio & video from streams
   '-map', '0:a',
   '-map', '1:v',
-  // Keep encoding
   '-c:v', 'copy',
-  // Define output file
-  'out.mkv',
+  '-c:a', 'copy', 
+  '-y',
+  //'-b:a', '192k',
+   '-f', 'nut', 'pipe:6',
 ], {
   windowsHide: true,
   stdio: [
@@ -139,7 +139,17 @@ ffmpegProcess.stdio[3].on('data', chunk => {
 audio.pipe(ffmpegProcess.stdio[4]);
 video.pipe(ffmpegProcess.stdio[5]);
 
- }); 
+if (ffmpegProcess.stdio[6]){
+  //ffmpegProcess.stdio[3].pipe(videoStream);
+  res.set('Content-disposition', 'attachment; filename='+ encodeURI(tituloiPlano+calidad+"_m_r_b."+extencion));
+  res.set('Content-Type', content);
+  cr("descargando "+tituloiPlano+calidad+"_m_r_b."+extencion); 
+  
+  ffmpegProcess.stdio[6].pipe(res)
+  }
+  
+});
+  
 ////////////////////////////////////////////////////////////////
 
 app.listen(8080, function(){
