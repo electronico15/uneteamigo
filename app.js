@@ -138,7 +138,7 @@ ffmpegProcess.stdio[3].on('data', chunk => {
 audio.pipe(ffmpegProcess.stdio[4]);
 video.pipe(ffmpegProcess.stdio[5]);
 
-  
+ }); 
 ////////////////////////////////////////////////////////////////
 
 app.listen(8080, function(){
