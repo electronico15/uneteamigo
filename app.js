@@ -153,6 +153,63 @@ ffmpegProcess.stdio[6].pipe(res)
     })
 //////////////////////////////////////////////////////////////
 
+////////////////////////////////////////////////////////////////
+app.get("/downloadVideoAudido",async function (req, res) {
+  var content = req.query.content;
+  var extencion = req.query.extencion;
+  var url = req.query.urlCodificada.replace(/@i/g , "&").replace(/@al/g, "=");
+  var tituloiPlano = req.query.titulo.replace(/[$.,:"'!><?`#~]/g,'');
+ 
+  cr(url)
+   
+  getHttps();
+  function getHttps(){
+    https.get(url, (data)=>{
+      let dataChunk = '';
+     
+      const statusCode = data.statusCode;
+      const statusMessage = data.statusMessage;
+      const contentType = data.headers['content-type'];
+      const location = data.rawHeaders.slice(9, 10)
+     
+  ce('******************************************************');
+  ce('******************------start-----********************');
+  ce('******************************************************');
+
+if (data.statusCode === 200){
+ descaragrarr();
+} else if (data.statusCode === 302) {
+  ce('recalibarando por get code '+data.statusCode);
+getHttps();
+} else {
+ cr(data.statusCode);
+       }
+     data.on('data', (chunk) => {
+     dataChunk += chunk.length;
+     cr('bytes'+ dataChunk)
+       });
+  
+    data.on('end', () => {
+      ce('******************************************************');
+      ce('******************---- end req---**********************');
+      ce('******************************************************');
+    });
+       
+      function descaragrarr(){
+        ce('res.statusCode '+data.statusCode+' descaragrarr')
+        res.set('Content-disposition', 'attachment; filename=' + encodeURI(tituloiPlano+"_m_r_b."+extencion));
+        res.set('Content-Type', content);
+        cr("descargando "+tituloiPlano+"_m_r_b."+extencion);
+        data.pipe(res);
+      }
+  
+      }).on("error", (err) => {
+      console.log("Error: " + err.message);
+  });
+  }
+    })
+////////////////////////////////////////////////////////////////
+
 app.listen(8080, function(){
 console.log('server listo '+moment().format("HH:mm"))
 });
