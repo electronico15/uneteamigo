@@ -39,27 +39,30 @@ app.get("/downloadFFmpegRender", function (req, res) {
   ce('******************************************************');
   ce('*******------start downloadFFmpegRender 1-----********');
   ce('******************************************************'); 
- // var UrlVideoConAudio = req.query.UrlVideoConAudio.replace(/@i/g , "&").replace(/@al/g, "=");
-  var idViddeo= req.query.idViddeo;
+ 
+  var idVideo = req.query.idVideo;
   var calidad =  req.query.calidad;
   var content = req.query.content;
   var extencion = req.query.extencion;
+  var resolucion = req.query.resolucion;
+  var tituloiPlano = req.query.titulo;
+  // var UrlVideoConAudio = req.query.UrlVideoConAudio.replace(/@i/g , "&").replace(/@al/g, "=");
   //var urlAudio = req.query.urlAudio.replace(/@i/g , "&").replace(/@al/g, "=");
- // var url = req.query.urlCodificada.replace(/@i/g , "&").replace(/@al/g, "=");
-  var tituloiPlano = req.query.titulo.replace(/[$.,:"'!><?`#~]/g,'');
- 
- //var videoStream = new stream.PassThrough();
- //var videoWriteStream = fs.createWriteStream(tituloiPlano+'.mp4');   
+  // var url = req.query.urlCodificada.replace(/@i/g , "&").replace(/@al/g, "=");
+  //var videoStream = new stream.PassThrough();
+  //var videoWriteStream = fs.createWriteStream(tituloiPlano+'.mp4');   
+cr(idVideo)
+cr(calidad)
+cr(content)
+cr(extencion)
+cr(resolucion)
+cr(tituloiPlano) 
 
-  const ref = `${idViddeo}`;
-
-
-// Get audio and video streams
-const audio = ytdl(ref, { quality: 'highestaudio' })
+const audio = ytdl(idVideo, { quality: 'highestaudio' })
   .on('progress', (_, downloaded, total) => {
   // cr(downloaded +total)
   });
-const video = ytdl(ref, { quality: 'highestvideo' })
+const video = ytdl(idVideo, { quality: 'highestvideo' })
   .on('progress', (_, downloaded, total) => {
    // cr(downloaded +total)
   });
@@ -78,11 +81,13 @@ const ffmpegProcess = cp.spawn(ejec, [
   '-preset', 'veryfast',
   '-map', '0:a',
   '-map', '1:v',
-  '-c:v', 'copy',
+  '-c:v', 'libx265',
   '-c:a', 'copy', 
   '-y',
+ // '-vf', 'scale=320:240',
+  '-s', `${resolucion}`,
   //'-b:a', '192k',
-   '-f', 'nut','pipe:6',
+   '-f', 'matroska','pipe:6',
 ], {
   windowsHide: true,
   stdio: [
@@ -94,29 +99,22 @@ const ffmpegProcess = cp.spawn(ejec, [
 });
 ffmpegProcess.on('close', () => {
   console.log('done');
- 
-});
+ });
 
-// Link streams
 // FFmpeg creates the transformer streams and we just have to insert / read data
 ffmpegProcess.stdio[3].on('data', chunk => {
 //cr(chunk)
 });
   
-audio.pipe(ffmpegProcess.stdio[4]);
-video.pipe(ffmpegProcess.stdio[5]);
-
-
-  //ffmpegProcess.stdio[3].pipe(videoStream);
+  audio.pipe(ffmpegProcess.stdio[4]);
+  video.pipe(ffmpegProcess.stdio[5]);
+  
   res.set('Content-disposition', 'attachment; filename='+ encodeURI(tituloiPlano+calidad+"_m_r_b."+extencion));
   res.set('Content-Type', content);
   cr("descargando "+tituloiPlano+calidad+"_m_r_b."+extencion); 
-  
-ffmpegProcess.stdio[6].pipe(res)
-
-  
-  
-});
+  ffmpegProcess.stdio[6].pipe(res)
+ 
+}); // fin downloadFFmpegRender
   
 ////////////////////////////////////////////////////////////////
 
