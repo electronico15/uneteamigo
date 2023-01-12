@@ -78,7 +78,7 @@ const ffmpegProcess = cp.spawn(ejec, [
   '-i', 'pipe:4',
   '-i', 'pipe:5',
   // Map audio & video from streams
-  '-preset', 'veryfast',
+  //'-preset', 'veryfast',
   '-map', '0:a',
   '-map', '1:v',
   '-c:v', 'libx265',
