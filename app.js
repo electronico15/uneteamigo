@@ -36,118 +36,85 @@ res.send('Home1.1')
 ////////////////////////////////////////////////////////////////////
 app.get("/downloadFFmpegRender", function (req, res) {
 
-  
   ce('******************************************************');
   ce('*******------start downloadFFmpegRender 1-----********');
   ce('******************************************************'); 
-  var UrlVideoConAudio = req.query.UrlVideoConAudio.replace(/@i/g , "&").replace(/@al/g, "=");
+ // var UrlVideoConAudio = req.query.UrlVideoConAudio.replace(/@i/g , "&").replace(/@al/g, "=");
   var idViddeo= req.query.idViddeo;
   var calidad =  req.query.calidad;
   var content = req.query.content;
   var extencion = req.query.extencion;
-  var urlAudio = req.query.urlAudio.replace(/@i/g , "&").replace(/@al/g, "=");
-  var url = req.query.urlCodificada.replace(/@i/g , "&").replace(/@al/g, "=");
+  //var urlAudio = req.query.urlAudio.replace(/@i/g , "&").replace(/@al/g, "=");
+ // var url = req.query.urlCodificada.replace(/@i/g , "&").replace(/@al/g, "=");
   var tituloiPlano = req.query.titulo.replace(/[$.,:"'!><?`#~]/g,'');
-  
+ 
  //var videoStream = new stream.PassThrough();
  //var videoWriteStream = fs.createWriteStream(tituloiPlano+'.mp4');   
 
-  const ref = `https://www.youtube.com/watch?v=${idViddeo}`;
-const tracker = {
-  start: Date.now(),
-  audio: { downloaded: 0, total: Infinity },
-  video: { downloaded: 0, total: Infinity },
-  merged: { frame: 0, speed: '0x', fps: 0 },
-};
+  const ref = `${idViddeo}`;
+
 
 // Get audio and video streams
 const audio = ytdl(ref, { quality: 'highestaudio' })
   .on('progress', (_, downloaded, total) => {
-    tracker.audio = { downloaded, total };
+  // cr(downloaded +total)
   });
 const video = ytdl(ref, { quality: 'highestvideo' })
   .on('progress', (_, downloaded, total) => {
-    tracker.video = { downloaded, total };
+   // cr(downloaded +total)
   });
-
-// Prepare the progress bar
-let progressbarHandle = null;
-const progressbarInterval = 1000;
-const showProgress = () => {
-  readline.cursorTo(process.stdout, 0);
-  const toMB = i => (i / 1024 / 1024).toFixed(2);
-
-  process.stdout.write(`Audio  | ${(tracker.audio.downloaded / tracker.audio.total * 100).toFixed(2)}% processed `);
-  process.stdout.write(`(${toMB(tracker.audio.downloaded)}MB of ${toMB(tracker.audio.total)}MB).${' '.repeat(10)}\n`);
-
-  process.stdout.write(`Video  | ${(tracker.video.downloaded / tracker.video.total * 100).toFixed(2)}% processed `);
-  process.stdout.write(`(${toMB(tracker.video.downloaded)}MB of ${toMB(tracker.video.total)}MB).${' '.repeat(10)}\n`);
-
-  process.stdout.write(`Merged | processing frame ${tracker.merged.frame} `);
-  process.stdout.write(`(at ${tracker.merged.fps} fps => ${tracker.merged.speed}).${' '.repeat(10)}\n`);
-
-  process.stdout.write(`running for: ${((Date.now() - tracker.start) / 1000 / 60).toFixed(2)} Minutes.`);
-  readline.moveCursor(process.stdout, 0, -3);
-};
 
 // Start the ffmpeg child process
 const ffmpegProcess = cp.spawn(ejec, [
   // Remove ffmpeg's console spamming
-  '-loglevel', '8', '-hide_banner',
+ // '-loglevel', '8',
+   '-hide_banner',
   // Redirect/Enable progress messages
   '-progress', 'pipe:3',
   // Set inputs
   '-i', 'pipe:4',
   '-i', 'pipe:5',
   // Map audio & video from streams
+  '-preset', 'veryfast',
   '-map', '0:a',
   '-map', '1:v',
   '-c:v', 'copy',
   '-c:a', 'copy', 
   '-y',
   //'-b:a', '192k',
-   '-f', 'nut', 'pipe:6',
+   '-f', 'nut','pipe:6',
 ], {
   windowsHide: true,
   stdio: [
     /* Standard: stdin, stdout, stderr */
     'inherit', 'inherit', 'inherit',
     /* Custom: pipe:3, pipe:4, pipe:5 */
-    'pipe', 'pipe', 'pipe',
+    'pipe', 'pipe', 'pipe', 'pipe'
   ],
 });
 ffmpegProcess.on('close', () => {
   console.log('done');
-  // Cleanup
-  process.stdout.write('\n\n\n\n');
-  clearInterval(progressbarHandle);
+ 
 });
 
 // Link streams
 // FFmpeg creates the transformer streams and we just have to insert / read data
 ffmpegProcess.stdio[3].on('data', chunk => {
-  // Start the progress bar
-  if (!progressbarHandle) progressbarHandle = setInterval(showProgress, progressbarInterval);
-  // Parse the param=value list returned by ffmpeg
-  const lines = chunk.toString().trim().split('\n');
-  const args = {};
-  for (const l of lines) {
-    const [key, value] = l.split('=');
-    args[key.trim()] = value.trim();
-  }
-  tracker.merged = args;
+//cr(chunk)
 });
+  
 audio.pipe(ffmpegProcess.stdio[4]);
 video.pipe(ffmpegProcess.stdio[5]);
 
-if (ffmpegProcess.stdio[6]){
+
   //ffmpegProcess.stdio[3].pipe(videoStream);
   res.set('Content-disposition', 'attachment; filename='+ encodeURI(tituloiPlano+calidad+"_m_r_b."+extencion));
   res.set('Content-Type', content);
   cr("descargando "+tituloiPlano+calidad+"_m_r_b."+extencion); 
   
-  ffmpegProcess.stdio[6].pipe(res)
-  }
+ffmpegProcess.stdio[6].pipe(res)
+
+  
   
 });
   
