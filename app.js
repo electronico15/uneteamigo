@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-const fs = require("fs");
 const body_parser = require('body-parser');
 const path = require('path');
 const cors = require('cors');
@@ -8,9 +7,7 @@ const ytdl = require('ytdl-core');
 const https = require('https');
 const moment = require('moment');
 const ejec = require('ffmpeg-static');
-const ffmpeg = require('fluent-ffmpeg');
 const cp = require('child_process');
-const readline = require('readline');
 const units = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
 
 
