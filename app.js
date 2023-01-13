@@ -35,12 +35,12 @@ res.send('Home1.1')
 app.post("/up", async function (req, res) {
   var id = req.body.bd
   var urlVideoEs = `https://www.youtube.com/watch?v=${id}`
-  const filepath = path.resolve(__dirname, 'info.json');
-  console.log('solisitando info de '+urlVideoEs);
-  const info = await ytdl.getInfo(urlVideoEs);
+  cr('procesando solisitud '+urlVideoEs)
+   const info = await ytdl.getInfo(urlVideoEs);
   var resp = info.formats.sort((a, b) => {
   return a.mimeType < b.mimeType;
 })
+ res.send(resp);
  console.log('info redy');
 })
 ////////////////////////////////////////////////////////////////
