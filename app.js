@@ -14,6 +14,7 @@ const units = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
 app.use(express.static(__dirname + '/dow'));
 
 app.use(body_parser.urlencoded({extended:true}));
+app.use(cors());
 //////////funcion para pintar lia dde texto en la consola////////////////
 function cr(str){ // asul claro
   console.log('\x1b[36m', str ,'\x1b[0m')
