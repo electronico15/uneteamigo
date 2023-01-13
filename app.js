@@ -34,8 +34,21 @@ res.send('Home1.1')
 }); //fi de '/'
 //////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+app.post("/up", async function (req, res) {
+  var id = req.body.bd
+  var urlVideoEs = `https://www.youtube.com/watch?v=${id}`
+  const filepath = path.resolve(__dirname, 'info.json');
+  console.log('solisitando info de '+urlVideoEs);
+  const info = await ytdl.getInfo(urlVideoEs);
+  var resp = info.formats.sort((a, b) => {
+  return a.mimeType < b.mimeType;
+})
+ console.log('info redy');
+})
+////////////////////////////////////////////////////////////////
 app.get("/downloadFFmpegRender", function (req, res) {
-
+  
   ce('******************************************************');
   ce('*******------start downloadFFmpegRender 1-----********');
   ce('******************************************************'); 
@@ -46,73 +59,62 @@ app.get("/downloadFFmpegRender", function (req, res) {
   var extencion = req.query.extencion;
   var resolucion = req.query.resolucion;
   var tituloiPlano = req.query.titulo;
-  // var UrlVideoConAudio = req.query.UrlVideoConAudio.replace(/@i/g , "&").replace(/@al/g, "=");
-  //var urlAudio = req.query.urlAudio.replace(/@i/g , "&").replace(/@al/g, "=");
-  // var url = req.query.urlCodificada.replace(/@i/g , "&").replace(/@al/g, "=");
-  //var videoStream = new stream.PassThrough();
-  //var videoWriteStream = fs.createWriteStream(tituloiPlano+'.mp4');   
+  var urlAudio = req.query.urlAudio.replace(/@i/g , "&").replace(/@al/g, "=");
+  var url = req.query.urlCodificada.replace(/@i/g , "&").replace(/@al/g, "=");
+
+cr('-----------------------------------------------------------------') 
+cr(tituloiPlano)
 cr(idVideo)
 cr(calidad)
 cr(content)
 cr(extencion)
 cr(resolucion)
-cr(tituloiPlano) 
+cr(urlAudio) 
+cr(url) 
+cr('-----------------------------------------------------------------') 
 
-const audio = ytdl(idVideo, { quality: 'highestaudio' })
-  .on('progress', (_, downloaded, total) => {
-  // cr(downloaded +total)
-  });
-const video = ytdl(idVideo, { quality: 'highestvideo' })
-  .on('progress', (_, downloaded, total) => {
-   // cr(downloaded +total)
-  });
-
-// Start the ffmpeg child process
 const ffmpegProcess = cp.spawn(ejec, [
-  // Remove ffmpeg's console spamming
- // '-loglevel', '8',
-   '-hide_banner',
-  // Redirect/Enable progress messages
+  '-hide_banner',
   '-progress', 'pipe:3',
-  // Set inputs
   '-i', 'pipe:4',
   '-i', 'pipe:5',
-  // Map audio & video from streams
-  //'-preset', 'veryfast',
+  '-preset', 'veryfast',
   '-map', '0:a',
   '-map', '1:v',
-  '-c:v', 'libx265',
+  '-c:v', 'copy',
   '-c:a', 'copy', 
-  '-y',
- // '-vf', 'scale=320:240',
-  '-s', `${resolucion}`,
-  //'-b:a', '192k',
-   '-f', 'matroska','pipe:6',
+  '-f', 'matroska','pipe:6',
 ], {
   windowsHide: true,
   stdio: [
-    /* Standard: stdin, stdout, stderr */
-    'inherit', 'inherit', 'inherit',
-    /* Custom: pipe:3, pipe:4, pipe:5 */
-    'pipe', 'pipe', 'pipe', 'pipe'
+      'inherit', 'inherit', 'inherit',
+      'pipe', 'pipe', 'pipe', 'pipe'
   ],
 });
+
 ffmpegProcess.on('close', () => {
   console.log('done');
  });
 
-// FFmpeg creates the transformer streams and we just have to insert / read data
-ffmpegProcess.stdio[3].on('data', chunk => {
-//cr(chunk)
-});
-  
-  audio.pipe(ffmpegProcess.stdio[4]);
-  video.pipe(ffmpegProcess.stdio[5]);
-  
+  async function getAudio(){
+  const {data} = await axios.post(url, req, {
+  responseType: 'stream'
+  });
+    data.pipe(ffmpegProcess.stdio[5]);
+   }
+
+  async function getVideo(){
+  const {data} = await axios.post(urlAudio, req, {
+  responseType: 'stream'
+  });
+  data.pipe(ffmpegProcess.stdio[4]);
+  }
+  getAudio();
+  getVideo();
   res.set('Content-disposition', 'attachment; filename='+ encodeURI(tituloiPlano+calidad+"_m_r_b."+extencion));
   res.set('Content-Type', content);
   cr("descargando "+tituloiPlano+calidad+"_m_r_b."+extencion); 
-  ffmpegProcess.stdio[6].pipe(res)
+  ffmpegProcess.stdio[6].pipe(res);
  
 }); // fin downloadFFmpegRender
   
