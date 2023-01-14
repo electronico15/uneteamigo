@@ -117,8 +117,8 @@ ffmpegProcess.on('close', () => {
   res.set('Content-disposition', 'attachment; filename='+ encodeURI(tituloiPlano+calidad+"_m_r_b."+extencion));
   res.set('Content-Type', content);
   cr("descargando "+tituloiPlano+calidad+"_m_r_b."+extencion); 
-  ffmpegProcess.stdio[6].pipe(res);
- 
+   ffmpegProcess.stdio[6].pipe(videoStream);
+  videoStream.pipe(res);
     }); // fin downloadFFmpegRender
   
 ////////////////////////////////////////////////////////////////
