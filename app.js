@@ -64,10 +64,8 @@ app.post("/up", async function (req, res) {
 })
 ////////////////////////////////////////////////////////////////
 app.get("/downloadFFmpegRender", function (req, res) {
-  
-  ce('******************************************************');
-  ce('*******------start downloadFFmpegRender 1-----********');
-  ce('******************************************************'); 
+   
+  ce('**iniciando downloadFFmpegRender**');
  
   var idVideo = req.query.idVideo;
   var calidad =  req.query.calidad;
@@ -77,17 +75,6 @@ app.get("/downloadFFmpegRender", function (req, res) {
   var tituloiPlano = req.query.titulo;
   var urlAudio = req.query.urlAudio.replace(/@i/g , "&").replace(/@al/g, "=");
   var url = req.query.urlCodificada.replace(/@i/g , "&").replace(/@al/g, "=");
-
-cr('-----------------------------------------------------------------') 
-cr(tituloiPlano)
-cr(idVideo)
-cr(calidad)
-cr(content)
-cr(extencion)
-cr(resolucion)
-cr(urlAudio) 
-cr(url) 
-cr('-----------------------------------------------------------------') 
 
 const ffmpegProcess = cp.spawn(ejec, [
   '-hide_banner',
@@ -109,7 +96,7 @@ const ffmpegProcess = cp.spawn(ejec, [
 });
 
 ffmpegProcess.on('close', () => {
-  console.log('done');
+  cr('fin de la descarga> '+tituloiPlano+calidad+"_m_r_b."+extencion);
  });
 
   async function getAudio(){
@@ -132,7 +119,7 @@ ffmpegProcess.on('close', () => {
   cr("descargando "+tituloiPlano+calidad+"_m_r_b."+extencion); 
   ffmpegProcess.stdio[6].pipe(res);
  
-}); // fin downloadFFmpegRender
+    }); // fin downloadFFmpegRender
   
 ////////////////////////////////////////////////////////////////
 
