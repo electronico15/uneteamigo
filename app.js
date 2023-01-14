@@ -88,7 +88,7 @@ const ffmpegProcess = cp.spawn(ejec, [
   '-c:v', 'copy',
   '-c:a', 'copy', 
   '-f', 'NUT','pipe:6',
-  '-y'
+  '-y',
   'oupt.mp4',
 ], {
   windowsHide: true,
