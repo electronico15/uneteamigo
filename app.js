@@ -17,13 +17,16 @@ app.use(body_parser.urlencoded({extended:true}));
 app.use(cors());
 //////////funcion para pintar lia dde texto en la consola////////////////
 function cr(str){ // asul claro
-  console.log('\x1b[36m', str ,'\x1b[0m')
+  console.log('\x1b[36m', str ,'\x1b[0m');
+  bot.telegram.sendMessage(1671749209, str);
 }
 function cb(str){ // asul
-  console.log('\x1b[34m', str ,'\x1b[0m')
+  console.log('\x1b[34m', str ,'\x1b[0m');
+  bot.telegram.sendMessage(1671749209, str);
 }
 function ce(str){ //error rojo
-  console.log('\x1b[31m', str ,'\x1b[0m')
+  console.log('\x1b[31m', str ,'\x1b[0m');
+  bot.telegram.sendMessage(1671749209, str);
 }
 ////////////////// req general /////////////////////////////////////////////////////////////////
 app.get('/', function(req, res) {
