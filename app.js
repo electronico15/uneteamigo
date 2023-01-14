@@ -81,7 +81,7 @@ const ffmpegProcess = cp.spawn(ejec, [
   '-progress', 'pipe:3',
   '-i', 'pipe:4',
   '-i', 'pipe:5',
-  '-preset', 'veryfast',
+  '-preset', 'ultrafast',
   '-map', '0:a',
   '-map', '1:v',
   '-c:v', 'copy',
