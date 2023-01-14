@@ -5,18 +5,17 @@ const { Telegraf } = require('telegraf');
 const body_parser = require('body-parser');
 const ejec = require('ffmpeg-static');
 const ytdl = require('ytdl-core');
-const https = require('https');
 const path = require("path");
-const API_KEY = require("./priv/json_data/api.json")
 const cp = require('child_process');
 const cors = require('cors');
 const units = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
 const bot = new Telegraf('5433177136:AAG4WlnHPObfk2ce1jL1oOIynYE6hV97e74');
-app.use(cors())
+//////////////////////////////////////////////////////
+app.use(cors());
 app.use(express.static(__dirname + '/dow'));
 app.use(body_parser.urlencoded({extended:true}));
 app.use(cors());
-
+/////////////////////////////////////////////////////
 /////////////////////////////////////////////////////
 bot.start((ctx) => {ctx.reply('Welcome')});
 bot.help((ctx) => ctx.reply('Send me a sticker'));
