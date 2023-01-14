@@ -23,6 +23,7 @@
     "ffmpeg-static": "^5.1.0",
     "moment": "^2.29.4",
     "ytdl-core": "^4.11.2",
+    "telegraf": "^4.11.2",
     "axios": "^1.2.2"
      },
   "devDependencies": {
