@@ -1,20 +1,32 @@
-const express = require('express');
-const app = express();
+const express = require('express')
+const app = express()
+const axios = require('axios');
+const { Telegraf } = require('telegraf');
 const body_parser = require('body-parser');
-const path = require('path');
-const cors = require('cors');
+const ejec = require('ffmpeg-static');
 const ytdl = require('ytdl-core');
 const https = require('https');
-const moment = require('moment');
-const ejec = require('ffmpeg-static');
+const path = require("path");
+const API_KEY = require("./priv/json_data/api.json")
 const cp = require('child_process');
+const cors = require('cors');
 const units = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-
-
+const bot = new Telegraf('5433177136:AAG4WlnHPObfk2ce1jL1oOIynYE6hV97e74');
+app.use(cors())
 app.use(express.static(__dirname + '/dow'));
-
 app.use(body_parser.urlencoded({extended:true}));
 app.use(cors());
+
+/////////////////////////////////////////////////////
+bot.start((ctx) => {ctx.reply('Welcome')});
+bot.help((ctx) => ctx.reply('Send me a sticker'));
+bot.on('sticker', (ctx) => ctx.reply('👍'));
+bot.hears('hi', (ctx) => ctx.reply('Hey there'));
+bot.command('oldschool', (ctx) => ctx.reply('Hello4')); 
+bot.telegram.sendMessage(1671749209, `Server iniciado`);
+bot.launch();
+///////////////////////////////////////////////////////////////////////
+
 //////////funcion para pintar lia dde texto en la consola////////////////
 function cr(str){ // asul claro
   console.log('\x1b[36m', str ,'\x1b[0m');
