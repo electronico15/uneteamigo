@@ -10,7 +10,9 @@ const cp = require('child_process');
 const cors = require('cors');
 const moment = require('moment');
 const units = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-const bot = new Telegraf('5433177136:AAG4WlnHPObfk2ce1jL1oOIynYE6hV97e74');
+//5871057138:AAFOz6wB5QOtv9fyuTPu-C72qtS7AdYeYH8  t.me/MRB_LOG_RENDER_BOT
+//5433177136:AAG4WlnHPObfk2ce1jL1oOIynYE6hV97e74
+const bot = new Telegraf('5871057138:AAFOz6wB5QOtv9fyuTPu-C72qtS7AdYeYH8');
 //////////////////////////////////////////////////////
 app.use(cors());
 app.use(express.static(__dirname + '/dow'));
