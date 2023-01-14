@@ -8,6 +8,7 @@ const ytdl = require('ytdl-core');
 const path = require("path");
 const cp = require('child_process');
 const cors = require('cors');
+const moment = require('moment');
 const units = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
 const bot = new Telegraf('5433177136:AAG4WlnHPObfk2ce1jL1oOIynYE6hV97e74');
 //////////////////////////////////////////////////////
@@ -133,5 +134,5 @@ ffmpegProcess.on('close', () => {
 ////////////////////////////////////////////////////////////////
 
 app.listen(8080, function(){
-console.log('server listo '+moment().format("HH:mm"))
+cb('server listo '+moment().format("HH:mm:ss YYYY-MM-DD"))
 });
