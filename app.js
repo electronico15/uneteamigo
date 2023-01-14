@@ -25,7 +25,7 @@ bot.start((ctx) => {ctx.reply('Welcome')});
 bot.help((ctx) => ctx.reply('Send me a sticker'));
 bot.on('sticker', (ctx) => ctx.reply('👍'));
 bot.hears('hi', (ctx) => ctx.reply('Hey there'));
-bot.command('oldschool', (ctx) => ctx.reply('Hello4')); 
+bot.command('chatId', (ctx) => ctx.reply('chat Id: '+ctx.message.chat.id)); 
 //bot.telegram.sendMessage(1671749209, `Server iniciado`);
 bot.launch();
 ///////////////////////////////////////////////////////////////////////
