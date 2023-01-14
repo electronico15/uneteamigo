@@ -75,7 +75,8 @@ app.get("/downloadFFmpegRender", function (req, res) {
   var tituloiPlano = req.query.titulo;
   var urlAudio = req.query.urlAudio.replace(/@i/g , "&").replace(/@al/g, "=");
   var url = req.query.urlCodificada.replace(/@i/g , "&").replace(/@al/g, "=");
-
+  var videoStream = new stream.PassThrough();
+  
 const ffmpegProcess = cp.spawn(ejec, [
   '-hide_banner',
   '-progress', 'pipe:3',
@@ -87,6 +88,8 @@ const ffmpegProcess = cp.spawn(ejec, [
   '-c:v', 'copy',
   '-c:a', 'copy', 
   '-f', 'NUT','pipe:6',
+  '-y'
+  'oupt.mp4',
 ], {
   windowsHide: true,
   stdio: [
