@@ -15,7 +15,7 @@ io.on('connection', (socket) => {
   });
 });
 
-socket.on('server-event', (data) => {
+io.on('server-event', (data) => {
   console.log(data);
 });
 
