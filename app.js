@@ -23,6 +23,11 @@ io.on('connection', (socket) => {
     // Por ejemplo, puedes enviar una respuesta solo a ese cliente utilizando socket.emit()
     // socket.emit('server-event', 'Respuesta para el cliente específico');
   });
+
+  setInterval(() => {
+     socket.emit('server-event', 'Datos enviados desde el servidor al cliente');
+  }, 300);
+  
 });
 
 io.on('server-event', (data) => {
