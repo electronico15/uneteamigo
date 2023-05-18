@@ -15,6 +15,10 @@ io.on('connection', (socket) => {
   });
 });
 
+socket.on('server-event', (data) => {
+  console.log(data);
+});
+
 http.listen(3000, () => {
   console.log('listening on *:3000');
 });
