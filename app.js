@@ -17,7 +17,7 @@ const units = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
 
 
 // Importar el paquete de socket.io
-const io = require('socket.io')(8080);
+const io = require('socket.io')(80);
 
 // Escuchar conexiones entrantes
 io.on('connection', (socket) => {
