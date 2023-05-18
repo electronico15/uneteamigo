@@ -14,6 +14,35 @@ const units = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
 //5433177136:AAG4WlnHPObfk2ce1jL1oOIynYE6hV97e74
 //5905743396:AAFxMllMCYrp3dJORzBLPBkGEs41170KvfA  t.me/MRB_LOG_TOOLS_BOT
 
+
+
+// Importar el paquete de socket.io
+const io = require('socket.io')(3000);
+
+// Escuchar conexiones entrantes
+io.on('connection', (socket) => {
+  console.log('Un cliente se ha conectado.');
+
+  // Escuchar solicitudes de datos
+  socket.on('solicitar-dato', (informacionRequerida) => {
+    console.log(`El cliente solicita la información: ${informacionRequerida}`);
+
+    // Procesar la solicitud y enviar la respuesta
+    const dato = procesarSolicitud(informacionRequerida);
+    socket.emit('dato-recibido', dato);
+  });
+});
+
+// Función para procesar la solicitud y obtener el dato correspondiente
+function procesarSolicitud(informacionRequerida) {
+  // Aquí puedes realizar cualquier operación necesaria para obtener el dato solicitado
+  const dato = 'información obtenida';
+
+  return dato;
+}
+
+
+
 const bot = new Telegraf('5905743396:AAFxMllMCYrp3dJORzBLPBkGEs41170KvfA');
 //////////////////////////////////////////////////////
 app.use(cors());
