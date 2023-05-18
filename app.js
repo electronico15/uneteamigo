@@ -6,6 +6,8 @@ const io = require('socket.io')(http);
 app.get('/', (req, res) => {
 console.log('req')
   res.sendFile(__dirname + '/index.html');
+  const userAgent = req.headers['user-agent'];
+  console.log('req de '+userAgent)
 });
 
 io.on('connection', (socket) => {
