@@ -4,8 +4,8 @@ const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 
 app.get('/', (req, res) => {
-console.log('home1')
-res.send('Home1.1')
+console.log('req')
+  res.sendFile(__dirname + '/index.html');
 });
 
 io.on('connection', (socket) => {
