@@ -16,7 +16,7 @@ io.on('connection', (socket) => {
   console.log('Un usuario se ha conectado, clientId:', clientId);
   
   socket.on('disconnect', () => {
-    console.log('user ',clientId,' disconnected');
+    console.log('user '+clientId+' disconnected');
   });
   
   socket.on('client-event', (data) => {
