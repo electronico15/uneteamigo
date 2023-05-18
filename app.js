@@ -10,14 +10,25 @@ console.log('req')
 
 io.on('connection', (socket) => {
   console.log('a user connected');
+   const clientId = socket.id; // Obtener el clientId del socket
+  console.log('Un usuario se ha conectado, clientId:', clientId);
+  
   socket.on('disconnect', () => {
-    console.log('user disconnected');
+    console.log('user ',clientId,' disconnected');
+  });
+  
+  socket.on('client-event', (data) => {
+    console.log('Datos recibidos del cliente, clientId:', clientId, ', data:', data);
+    // Puedes utilizar el clientId para realizar acciones específicas para ese cliente
+    // Por ejemplo, puedes enviar una respuesta solo a ese cliente utilizando socket.emit()
+    // socket.emit('server-event', 'Respuesta para el cliente específico');
   });
 });
 
 io.on('server-event', (data) => {
   console.log(data);
 });
+
 
 http.listen(3000, () => {
   console.log('listening on *:3000');
