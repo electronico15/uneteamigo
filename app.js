@@ -4,14 +4,12 @@ const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 
 app.get('/', (req, res) => {
-console.log('req')
   res.sendFile(__dirname + '/index.html');
   const userAgent = req.headers['user-agent'];
   console.log('req de '+userAgent)
 });
 
 io.on('connection', (socket) => {
-  console.log('a user connected');
    const clientId = socket.id; // Obtener el clientId del socket
   console.log('Un usuario se ha conectado, clientId:', clientId);
   
