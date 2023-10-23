@@ -2,12 +2,20 @@ const express = require('express');
 const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
+const { v4: uuidv4 } = require('uuid');
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
   const userAgent = req.headers['user-agent'];
   console.log('req de '+userAgent)
 });
+
+app.get('/uuid', (req, res) => {
+    console.log('se solisito un uuid')
+  const uuid = uuidv4(); // Genera un nuevo UUID
+  res.json({ uuid }); // Retorna el UUID en formato JSON
+});
+
 
 io.on('connection', (socket) => {
    const clientId = socket.id; // Obtener el clientId del socket
