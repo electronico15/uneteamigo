@@ -11,10 +11,11 @@ app.get('/', (req, res) => {
 });
 
 app.get('/uuid', (req, res) => {
-    console.log('se solisito un uuid')
+    console.log('se solisito un uuidd')
   const uuid = uuidv4(); // Genera un nuevo UUID
   res.json({ uuid }); // Retorna el UUID en formato JSON
 });
+
 
 
 io.on('connection', (socket) => {
