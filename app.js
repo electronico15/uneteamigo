@@ -2,7 +2,13 @@ const express = require('express');
 const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
+const cors = require('cors');
 const { v4: uuidv4 } = require('uuid');
+
+var corsOptions = {
+  origin: 'http://localhost/',
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
@@ -10,11 +16,12 @@ app.get('/', (req, res) => {
   console.log('req de '+userAgent)
 });
 
-app.get('/uuid', (req, res) => {
-    console.log('se solisito un uuidd')
+app.get('/uuid', cors(corsOptions), (req, res) => {
+    console.log('se solisito un uuid')
   const uuid = uuidv4(); // Genera un nuevo UUID
   res.json({ uuid }); // Retorna el UUID en formato JSON
 });
+
 
 
 
