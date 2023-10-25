@@ -6,7 +6,7 @@ const cors = require('cors');
 const { v4: uuidv4 } = require('uuid');
 
 var corsOptions = {
-  origin: 'http://localhost/',
+  origin: 'http://localhost:19006',
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
 
