@@ -2,10 +2,11 @@ const { Telegraf, Markup  } = require('telegraf');
 const { message } = require('telegraf/filters');
 require('dotenv').config();
 const moment = require('moment');
-const { crearUsuario , getUserData} = require('./bd/userdata/adminUserData')
+const { crearUsuario , getUserData} = require('./adminUserData')
 
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
+console.log(process.env.BOT_TOKEN)
 
 bot.start(async (ctx) => {
     const { chat, from } = ctx.message;
@@ -32,7 +33,7 @@ bot.start(async (ctx) => {
     const chatId = ctx.message.chat.id;
   const messageId = ctx.message.message_id;
 
-
+  console.log(process.env.BOT_TOKEN)
     try {
       const { chat, from } = ctx.message;
   

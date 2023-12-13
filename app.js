@@ -4,6 +4,7 @@ const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 const cors = require('cors');
 const { v4: uuidv4 } = require('uuid');
+require('./bot')
 
 var corsOptions = {
   origin: 'http://localhost:19006',
