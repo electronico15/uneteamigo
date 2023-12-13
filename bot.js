@@ -5,8 +5,8 @@ const moment = require('moment');
 const { crearUsuario , getUserData} = require('./adminUserData')
 
 
-const bot = new Telegraf(process.env.BOT_TOKEN);
-console.log(process.env.BOT_TOKEN)
+const bot = new Telegraf(process.env.MRB_Toos);
+
 
 bot.start(async (ctx) => {
     const { chat, from } = ctx.message;
