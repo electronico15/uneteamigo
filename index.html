@@ -1,11 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8">
   <title>Socket.IO Example</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
   <h1>Socket.IO Example</h1>
-  <script src="/socket.io/socket.io.js"></script>
+
+  <h1>Mini App de Telegram</h1>
+  <p>Esta es una Mini App de ejemplo para Telegram.</p>
+  <button onclick="enviarDatos()">Enviar datos</button>
+  <script>
+    // Inicializa tu Mini App
+    Telegram.WebApp.init({
+      // Configuración inicial de tu Mini App
+    });
+
+    // Define eventos y métodos para la interacción
+    function enviarDatos() {
+      Telegram.WebApp.sendData('Estos son algunos datos enviados desde la Mini App.');
+    }
+  </script>
+
+
   <script>
     const socket = io();
     console.log('connecting...');
