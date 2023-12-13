@@ -13,10 +13,17 @@
   <p>Esta es una Mini App de ejemplo para Telegram.</p>
   <button onclick="enviarDatos()">Enviar datos</button>
   <script>
-    // Inicializa tu Mini App
-    Telegram.WebApp.init({
+     // Inicializa tu Mini App con confirmación de cierre
+     Telegram.WebApp.init({
+      confirmClosing: true,
       // Configuración inicial de tu Mini App
     });
+
+    // Define eventos y métodos para la interacción
+    function cerrarApp() {
+      // Cierra la Mini App
+      Telegram.WebApp.close();
+    }
 
     // Define eventos y métodos para la interacción
     function enviarDatos() {
