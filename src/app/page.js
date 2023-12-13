@@ -1,5 +1,4 @@
 import Image from 'next/image'
-const { crearUsuario , getUserData} = require('./adminUserData')
 
 export default function Home() {
   return (
