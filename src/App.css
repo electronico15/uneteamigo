@@ -1,0 +1,68 @@
+body {
+  background-color: hwb(220 84% 9%);
+
+}
+.mrb_text{
+color: #35b824;
+}
+
+.rowLavelRingLeft{
+background-color: #70848a2f;
+margin: 1px;
+border-radius: 5px;
+}
+
+.bord5px {
+  border-radius: 5px !important; /* Cambia el radio de las esquinas a 10px */
+}
+.elementoright {
+  float: right;
+  color: #35b824;
+}
+
+.select-horizontal {
+  width: 100%;
+}
+
+.select-horizontal option {
+  display: inline;
+}
+.App {
+ 
+ text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
